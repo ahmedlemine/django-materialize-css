@@ -1,0 +1,15 @@
+{% extends 'posts/base.html' %}
+{% load humanize %}
+
+{% block content %}
+    <H3 class="teal-text lighten-4"">Create a Posts</H3>
+        <form action="." method='POST' class="col s12">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn waves-effect waves-light" type="submit" name="action">Create
+                <i class="material-icons right">send</i>
+            </button>
+
+        </form>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'posts/base.html' %}
+{% load humanize %}
+
+{% block content %}
+        <h3 class="">{{ post.title }}</h3>
+        <a href="{% url 'update' post.slug %}" class="btn-floating waves-effect waves-light btn"><i class="material-icons left">mode_edit</i></a>
+        <a href="{% url 'delete' post.slug %}" class="btn-floating waves-effect waves-light btn red"><i class="material-icons left">delete</i></a>
+        <br/> <br>
+        <div class="grey-text">
+                <span>{{ post.added|timesince }} ago </span>
+                <span><i class="material-icons tiny">remove_red_eye</i> 1399</span>
+        </div>
+        
+        <p class="flow-text">{{ post.body }}</p>
+        <br>
+        <br>
+{% endblock content %}
+
