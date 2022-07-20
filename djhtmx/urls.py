@@ -8,7 +8,8 @@ from posts.views import (
             PostDetail,
             update_post,
             PostDelete,
-            delete_post_htmx
+            delete_post_htmx,
+            search
             )
 urlpatterns = [
     path('', Index.as_view(), name='index'),
@@ -16,6 +17,7 @@ urlpatterns = [
     path('<slug:slug>/update/', update_post, name='update'),
     path('<slug:slug>/delete/', PostDelete.as_view(), name="delete"),
     path('create/', create_post, name="create"),
+    path('search/', search, name="search"),
     path('htmx_delete/<slug:slug>/', delete_post_htmx, name='htmx-delete'),
     # admin
     path('admin/', admin.site.urls),

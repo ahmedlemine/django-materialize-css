@@ -43,9 +43,15 @@
         // floatin action buttons init
           document.addEventListener('DOMContentLoaded', function() {
           var elems = document.querySelectorAll('.fixed-action-btn');
-          var instances = M.FloatingActionButton.init(elems, options);
+          var instances = M.FloatingActionButton.init(elems);
           });
         // end floating action buttons
+
+        // dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems);
+        });
     </script>
 </body>
 </html>

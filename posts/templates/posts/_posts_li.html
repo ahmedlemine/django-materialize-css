@@ -1,0 +1,10 @@
+{% load humanize %}
+
+  {% if post_list %}
+    {% for post in post_list %}
+        <li><a href="{% url 'detail' post.slug %}"><b>{{post.title}}</b></a></li>
+    {% endfor %}
+    <hr/>
+  {% else %}
+    <li><b>no results</b></li>
+  {% endif %}

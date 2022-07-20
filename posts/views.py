@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
@@ -97,3 +98,15 @@ def delete_post_htmx(request, slug):
     return render(request, 'posts/_post_list.html', context)
     # return HttpResponse(f"Post: '{post.title}' successfully deleted.")    
 
+def search(request):
+    qs = Post.objects.all()
+    q = request.GET.get('q')
+    if q:
+        qs = qs.filter(
+                Q(title__icontains=q) |
+                Q(body__icontains=q)
+                ).distinct()
+        context = {
+            'post_list': qs
+        }
+        return render(request, 'posts/_posts_li.html', context)
