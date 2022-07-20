@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from .models import Post
@@ -11,7 +12,7 @@ class Index(ListView):
     model = Post
     # context_object_name = 'objects'
     
-    template_name = 'posts/post_list.html'
+    template_name = 'posts/index.html'
     
     # convert views to K or M
     views = 40000
@@ -85,14 +86,14 @@ def update_post(request, slug):
 #     }
     
 #     return render(request, 'posts/index.html', context)
-
+@require_http_methods(['DELETE'])
 def delete_post_htmx(request, slug):
     post = Post.objects.get(slug=slug)
-
-    if request.method == 'DELETE':
-        post.delete()
-        posts = Post.objects.all()
-        return HttpResponse(f"Post: '{post.title}' successfully deleted.")
-    return HttpResponse('not a post request')
-    
+    post.delete()
+    posts = Post.objects.all()
+    context = {
+        'post_list': posts
+    }
+    return render(request, 'posts/_post_list.html', context)
+    # return HttpResponse(f"Post: '{post.title}' successfully deleted.")    
 

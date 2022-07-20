@@ -1,32 +1,25 @@
-{% extends 'posts/base.html' %}
 {% load humanize %}
 
-{% block content %}
-
-<H1 class="teal-text lighten-4"">Latest Posts</H1>
+<div id="post-list">
   {% if post_list %}
     {% for post in post_list %}
         <div id="entry{{post.pk}}">
         <h3 class=""><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h3>
         <span>{{ post.added|timesince }} ago | </span>
         <span>{{ views|intcomma }} views</span>
-        <hr/>
-        <br><br>
+        <br>
         <div>
-        <form action="{% url 'htmx-delete' post.slug %}">
-            {% csrf_token %}
+        <div id="posts"
+        hx-target="#post-list"
+        hx-swap="outerHtml"
+        hx-confirm="Are you sure you wish to delete this post: {{post.title}}?">
             <button class="btn red"
-            hx-delete="{% url 'htmx-delete' post.slug %}"
-            hx-target="#entry{{post.pk}}"
-            hx-swap="innerHTML"
-            hx-confirm="Are you sure you wish to delete this post: {{post.title}}?">
-              Delete with htmx
-              </button>
-        </form>
+            hx-delete="{% url 'htmx-delete' post.slug %}">
+            <i class="material-icons">delete</i></button>
+        </div>
         <br>
         </div>
       </div>
-        <hr/>
     {% endfor %}
   {% else %}
   <div style="margin-bottom: 50px; margin-top: 50px; padding: 80px 0px; border: 6px #9e9e9e solid; border-style: dashed;" class="nobook-wrapper container center">
@@ -39,4 +32,4 @@
 
 </div>
   {% endif %}
-{% endblock content %}
+</div>
