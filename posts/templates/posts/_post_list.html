@@ -4,9 +4,9 @@
   {% if post_list %}
     {% for post in post_list %}
         <div id="entry{{post.pk}}">
-        <h3 class=""><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h3>
-        <span>{{ post.added|timesince }} ago | </span>
-        <span class="margin-bottom-5">{{ views|intcomma }} views</span>
+        <h5 class=""><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h5>
+        <span class="grey-text">{{ post.added|timesince }} ago | </span>
+        <span class="grey-text margin-bottom-5">{{ views|intcomma }} views</span>
         <br>
         <div>
         <!-- <div id="post-del"
@@ -18,7 +18,7 @@
             hx-delete="{% url 'htmx-delete' post.slug %}">
             <i class="material-icons">delete</i></button>
         </div> -->
-        <br>
+        
         </div>
       </div>
     {% endfor %}
