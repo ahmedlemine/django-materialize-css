@@ -6,17 +6,18 @@
         <div id="entry{{post.pk}}">
         <h3 class=""><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h3>
         <span>{{ post.added|timesince }} ago | </span>
-        <span>{{ views|intcomma }} views</span>
+        <span class="margin-bottom-5">{{ views|intcomma }} views</span>
         <br>
         <div>
-        <div id="posts"
+        <!-- <div id="post-del"
         hx-target="#post-list"
         hx-swap="outerHtml"
         hx-confirm="Are you sure you wish to delete this post: {{post.title}}?">
-            <button class="btn red"
+            <a href="{% url 'update' post.slug %}" class="btn-floating waves-effect waves-light btn"><i class="material-icons left">mode_edit</i></a>
+            <button class="btn-floating waves-effect waves-light btn red"
             hx-delete="{% url 'htmx-delete' post.slug %}">
             <i class="material-icons">delete</i></button>
-        </div>
+        </div> -->
         <br>
         </div>
       </div>

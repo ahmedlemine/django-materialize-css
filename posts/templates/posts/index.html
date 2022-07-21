@@ -2,21 +2,34 @@
 {% load humanize %}
 
 {% block content %}
-<H1 class="teal-text lighten-4"">Latest Posts</H1>
-
-    <input type="text" name="q"
-        hx-get="/search"
-        hx-trigger="keyup changed delay:100ms"
-        hx-target="#search-results"
-        hx-swap="innerHTML"
-        placeholder="Search..."
-        >
-
-<div>
-    <ul id="search-results">
-    </ul>
+<div id="htmx-search">
+  <input type="text" name="q"
+      hx-get="/search"
+      hx-trigger="keyup changed delay:100ms"
+      hx-target="#search-results"
+      hx-swap="innerHTML"
+      placeholder="Search..."
+      >
+  <div>
+      <ul id="search-results">
+      </ul>
+  </div>
 </div>
+
+<H1 class="teal-text lighten-4"">Latest Posts
+<span>
+  <button hx-get="{% url 'htmx-create' %}"
+  hx-target="#post-add-form"
+  hx-swap="outerHtml"
+  class="waves-effect waves-light btn blue">
+  Add a post</button>
+</span>
+</H1>
+
+<div id="post-add-form"></div>
+<br>
 {% include 'posts/_post_list.html' %}
+<!-- floating action buttons -->
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large red">
       <i class="large material-icons">add</i>
@@ -25,7 +38,32 @@
       <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
       <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
       <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-      <li><a href="{% url 'create' %}" class="btn-floating red"><i class="material-icons">add</i></a></li>
+      <li><a data-target="modal1" class="btn-floating modal-trigger red"><i class="material-icons">add</i></a></li>
     </ul>
   </div>
-{% endblock content %}
+
+
+    <!-- Create post Modal -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Create a new post</h4>
+      <form action="{% url 'create' %}" method='POST' class="">
+        {% csrf_token %}
+        <label for="id_title">Title:</label>
+        <input type="text" name="title" maxlength="200" required id="id_title">
+        <label for="id_body">Body:</label>
+        <textarea name="body" cols="40" rows="10" class="materialize-textarea" required id="id_body">
+        </textarea>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Create
+              <i class="material-icons right">send</i>
+          </button>
+      </form>
+        </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Discard</a>
+      </div>
+    </div>
+    <!-- end modal -->
+
+    
+    {% endblock content %}

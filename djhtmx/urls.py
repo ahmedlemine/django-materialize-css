@@ -9,6 +9,7 @@ from posts.views import (
             update_post,
             PostDelete,
             delete_post_htmx,
+            create_post_form,
             search
             )
 urlpatterns = [
@@ -19,6 +20,7 @@ urlpatterns = [
     path('create/', create_post, name="create"),
     path('search/', search, name="search"),
     path('htmx_delete/<slug:slug>/', delete_post_htmx, name='htmx-delete'),
+    path('htmx_create/', create_post_form, name='htmx-create'),
     # admin
     path('admin/', admin.site.urls),
 ]

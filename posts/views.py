@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
@@ -60,17 +60,15 @@ class PostDetail(DetailView):
 
 
 def update_post(request, slug):
-    post = Post.objects.get(slug=slug)
-    form = PostForm(instance=post)
+    p = Post.objects.get(slug=slug)
+    form = PostForm(instance=p)
 
     if request.method == 'POST':
         form = PostForm(request.POST or None)
         if form.is_valid():
-            # title = form.cleaned_data['title']
-            # body = form.cleaned_data['body']
-            # new_post = Post.objects.create(title=title, body=body)
-            # new_post.save()
-            form.save()
+            p.title = form.cleaned_data['title']
+            p.body = form.cleaned_data['body']
+            p.save()
             return redirect('/')
         else:
             form = PostForm(request.POST or None)
@@ -96,7 +94,28 @@ def delete_post_htmx(request, slug):
         'post_list': posts
     }
     return render(request, 'posts/_post_list.html', context)
-    # return HttpResponse(f"Post: '{post.title}' successfully deleted.")    
+    # return HttpResponse(f"Post: '{post.title}' successfully deleted.") 
+
+def create_post_form(request):
+    form = PostForm()
+
+    if request.method == 'POST':
+        form = PostForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            posts = Post.objects.all()
+            context = {
+                'post_list': posts
+            }
+            return render(request, 'posts/_post_list.html', context)
+        else:
+            form = PostForm(request.POST or None)
+    
+    form = PostForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'posts/_post_form.html', context)   
 
 def search(request):
     qs = Post.objects.all()
