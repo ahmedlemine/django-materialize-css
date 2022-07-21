@@ -1,0 +1,12 @@
+<!--  post form for Modal partial template -->
+<div>
+    <h5 class="grey-text">Edit post</h5>
+    <form action="{% url 'htmx-update' post.slug %}" method='POST' class="">
+      {% csrf_token %}
+      {{ form.as_p }}
+        <button class="btn waves-effect waves-light" type="submit" name="action">Save
+            <i class="material-icons right">save</i>
+        </button>
+    </form>
+</div>
+<!-- end post form for modal -->

@@ -95,7 +95,7 @@ def delete_post_htmx(request, slug):
     }
     return render(request, 'posts/_post_list.html', context)
     # return HttpResponse(f"Post: '{post.title}' successfully deleted.") 
-
+# HTMX form to return in partial template
 def create_post_form(request):
     form = PostForm()
 
@@ -115,7 +115,33 @@ def create_post_form(request):
     context = {
         'form': form
     }
-    return render(request, 'posts/_post_form.html', context)   
+    return render(request, 'posts/_post_form.html', context)
+
+
+def update_post_form(request, slug):
+    p = Post.objects.get(slug=slug)
+    form = PostForm(instance=p)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST or None)
+        if form.is_valid():
+            p.title = form.cleaned_data['title']
+            p.body = form.cleaned_data['body']
+            p.save()
+            # posts = Post.objects.all()
+            context = {
+                'post': p
+            }
+            # return render(request, 'posts/post_detail.html', context)
+            return redirect('detail', slug=p.slug)
+        else:
+            form = PostForm(request.POST or None)
+    
+    context = {
+        'post': p,
+        'form': form
+    }
+    return render(request, 'posts/_post_update_form_htmx.html', context)
 
 def search(request):
     qs = Post.objects.all()
