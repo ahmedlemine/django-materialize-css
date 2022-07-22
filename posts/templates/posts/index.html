@@ -2,19 +2,20 @@
 {% load humanize %}
 
 {% block content %}
-<div id="htmx-search">
-  <input type="text" name="q"
-      hx-get="/search"
-      hx-trigger="keyup changed delay:100ms"
-      hx-target="#search-results"
-      hx-swap="innerHTML"
-      placeholder="Search..."
-      >
-  <div>
-      <ul id="search-results">
-      </ul>
-  </div>
-</div>
+
+
+      <div class="search-field">
+        <i class="material-icons prefix">search</i>
+        <input type="text" name="q"
+        hx-get="/search"
+        hx-trigger="keyup changed delay:100ms"
+        hx-target="#search-results"
+        hx-swap="innerHTML"
+        placeholder="Search..."
+        >
+      </div>
+      <ul id="search-results"></ul>
+
 
 <H3 class="teal-text lighten-4"">Latest Posts
 <span>
@@ -25,10 +26,13 @@
   Add a post</button>
 </span>
 </H3>
-
+<!-- htmx target for create form -->
 <div id="post-add-form"></div>
 <br>
+<div id="post-list-template">
 {% include 'posts/_post_list.html' %}
+</div>
+<br>
 <!-- floating action buttons -->
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large red">
@@ -44,7 +48,7 @@
 
 
     <!-- Create post Modal -->
-    <div id="modal1" class="modal">
+    <div id="modal1" class="modal bottom-sheet">
       <div class="modal-content">
         <h4>Create a new post</h4>
       <form id="post-form" action="{% url 'create' %}" method='POST' class="">
@@ -54,16 +58,30 @@
         <label for="id_body">Body:</label>
         <textarea name="body" cols="40" rows="10" class="materialize-textarea" required id="id_body">
         </textarea>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Create
+          <button class="btn btn-small waves-effect waves-light" type="submit" name="action">Create
               <i class="material-icons right">send</i>
           </button>
       </form>
         </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Discard</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
       </div>
     </div>
     <!-- end modal -->
 
+ <!-- edit post Modal -->
+<div id="post-edit-modal" class="modal">
+  <div class="modal-content">
+    <h4>Edit Post</h4>
+          <form id="post-update-form"></form>
+    </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Discard</a>
+  </div>
+</div>
+<!-- end modal -->
     
     {% endblock content %}
+    <script>
+              
+    </script>

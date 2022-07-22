@@ -2,13 +2,13 @@
 {% load humanize %}
 
 {% block content %}
-<h3 class="">{{ post.title }}</h3>
-<button data-target="modal1" class="modal-trigger btn-floating blue lighten-1"
+<h3 class="flow-text">{{ post.title }}</h3>
+    <button data-target="modal1" class="modal-trigger btn-floating blue lighten-1"
         hx-get="{% url 'htmx-update' post.slug %}"
         hx-target="#post-update-form"
         hx-swap="outerHTML">
         <i class="material-icons left">mode_edit</i>
-        </button>
+    </button>
         <a href="{% url 'delete' post.slug %}" class="btn-floating waves-effect waves-light btn red"><i class="material-icons left">delete</i></a>
 
 
@@ -25,7 +25,7 @@
 <!-- edit post Modal -->
 <div id="modal1" class="modal">
         <div class="modal-content">
-          <h4>Create a new post</h4>
+          <h4>Edit Post</h4>
                 <form id="post-update-form"></form>
           </div>
         <div class="modal-footer">

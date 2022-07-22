@@ -22,19 +22,19 @@
     <nav class="teal">
       <div class="container">
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Materialize Blog</a>
+          <a href="/" class="brand-logo">Materialize Blog</a>
           <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
           <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
            <ul class="right hide-on-med-and-down">
             <li>
-              <a href="#home">Home</a>
+              <a href="/">Home</a>
             </li>
             <li>
-              <a href="#search">Search</a>
+              <a href="/">Blog</a>
             </li>
             <li>
-              <a href="#popular">Popular Places</a>
+              <a href="{% url 'create' %}">Create</a>
             </li>
           </ul>
         </div>
@@ -62,9 +62,9 @@
       <a href="#name"><span class="white-text name">Ahmed</span></a>
       <a href="#email"><span class="white-text email">example@gmail.com</span></a>
     </div></li>
-    <li><a class="subheader" href="/"><i class="material-icons">home</i>Home</a></li>
-    <li><a class="subheader" href="/">Blog</a></li>
-    <li><a class="subheader" href="{% url 'create' %}">Create</a></li>
+    <li><a class="waves-effect" href="/"><i class="material-icons">home</i>Home</a></li>
+    <li><a class="waves-effect" href="/">Blog</a></li>
+    <li><a class="waves-effect" href="{% url 'create' %}">Create</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Account</a></li>
     <li><a class="waves-effect" href="#!">Profile</a></li>
@@ -77,6 +77,8 @@
         {% endblock content %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+    
     <script>
         // insert csrf token when performing AJAX request 
         //document.body.addEventListener('htmx:configRequest', (event) => {
@@ -84,65 +86,56 @@
         //})
         // floatin action buttons init
           document.addEventListener('DOMContentLoaded', function() {
-          var elems = document.querySelectorAll('.fixed-action-btn');
-          var instances = M.FloatingActionButton.init(elems, {});
+          var fab = document.querySelectorAll('.fixed-action-btn');
+          var instances = M.FloatingActionButton.init(fab, {});
           });
         // end floating action buttons
 
         // dropdown
         document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.dropdown-trigger');
-        var instances = M.Dropdown.init(elems, {});
+        var drop = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(drop, {});
         });
 
         // Create Post Modal
         document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems, {});
+        var pmodal = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(pmodal, {});
         });
 
         // Materialize side nav init
         document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, {});
+        var snav = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(snav, {});
+        });
+
+        /* date picker materialized css */
+        document.addEventListener('DOMContentLoaded', function() {
+        var dp = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(dp, {
+          'isRTL': false
+        });
         });
         // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
         // var collapsibleElem = document.querySelector('.collapsible');
         // var collapsibleInstance = M.Collapsible.init(collapsibleElem, {});
 
         // End of Materialize side nav
+
+        
+              // init materialized css auto complete with ajax
+        // document.addEventListener('DOMContentLoaded', function() {
+        //       $.get("/search/", function(data){
+        //         console.log(data)
+        //         // now init autocomplete
+        //         let ac = document.querySelectorAll('.autocomplete');
+        //         let instances = M.Autocomplete.init(ac, {
+        //         data: JSON.parse(JSON.stringify(data))
+        //         });
+        //     });
+        // });
+        
+        
     </script>
 </body>
 </html>
-
-
-   <!-- <div class="navbar-fixed">
-
-    <nav>
-        <div class="nav-wrapper teal">
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <a href="/" class="brand-logo">My Blog</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{% url 'index' %}">Blog</a></li>
-            <li><a href="{% url 'create' %}">Create</a></li>
-            <li><a href="collapsible.html">Login</a></li>
-          </ul>
-        </div>
-      </nav>
-      <ul id="slide-out" class="sidenav">
-        <li><div class="user-view">
-          <div class="background">
-            <img src="images/office.jpg">
-          </div>
-          <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-          <a href="#name"><span class="white-text name">John Doe</span></a>
-          <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div></li>
-        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-        <li><a href="#!">Second Link</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-      </ul>
-      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div> -->

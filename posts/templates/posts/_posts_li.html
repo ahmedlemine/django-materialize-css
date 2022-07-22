@@ -6,5 +6,5 @@
     {% endfor %}
     <hr/>
   {% else %}
-    <li><b>no results</b></li>
+    <li onclick="M.toast({html: 'No results found.'})"><b>no results</b></li>  
   {% endif %}

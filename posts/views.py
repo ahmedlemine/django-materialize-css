@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
@@ -155,3 +156,9 @@ def search(request):
             'post_list': qs
         }
         return render(request, 'posts/_posts_li.html', context)
+        # return render(request, 'posts/_post_list.html', context)
+    # post_list = {}
+    # for post in qs:
+    #     post_list[post.title] = 'static/posts/images/user_avatar.jpg'
+    # print(post_list)
+    # return render(request, 'posts/_post_list.html', {'post_list': qs})

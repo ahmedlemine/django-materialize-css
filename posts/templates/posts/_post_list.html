@@ -4,33 +4,44 @@
   {% if post_list %}
     {% for post in post_list %}
         <div id="entry{{post.pk}}">
-        <h5 class=""><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></h5>
+        <h5 class="teal-text flow-text"><a href="{% url 'detail' post.slug %}">{{ post.title }}</a>
+          <span>
+            <a href="#post-edit-modal" class="modal-trigger teal-text"
+                  hx-get="{% url 'htmx-update' post.slug %}"
+                  hx-target="#post-update-form"
+                  hx-swap="outerHTML">
+                  <i class="material-icons tiny">mode_edit</i>
+              </a>
+              <a class="red-text"
+                  hx-delete="{% url 'htmx-delete' post.slug %}"
+                  hx-target="#post-list"
+                  hx-swap="outerHtml"
+                  hx-confirm="Are you sure you wish to delete this post: {{post.title}}?"
+                  htmx:afterRequest="M.toast({html: 'I am a toast'})">
+                  <i class="material-icons tiny">delete</i>
+              </a>
+          </span>
+        </h5>
+        
         <span class="grey-text">{{ post.added|timesince }} ago | </span>
         <span class="grey-text margin-bottom-5">{{ views|intcomma }} views</span>
+        
         <br>
         <div>
-        <!-- <div id="post-del"
-        hx-target="#post-list"
-        hx-swap="outerHtml"
-        hx-confirm="Are you sure you wish to delete this post: {{post.title}}?">
-            <a href="{% url 'update' post.slug %}" class="btn-floating waves-effect waves-light btn"><i class="material-icons left">mode_edit</i></a>
-            <button class="btn-floating waves-effect waves-light btn red"
-            hx-delete="{% url 'htmx-delete' post.slug %}">
-            <i class="material-icons">delete</i></button>
-        </div> -->
-        
+        <div id="post-actions">
+            
+        </div>
         </div>
       </div>
     {% endfor %}
   {% else %}
-  <div style="margin-bottom: 50px; margin-top: 50px; padding: 80px 0px; border: 6px #9e9e9e solid; border-style: dashed;" class="nobook-wrapper container center">
-    <h3 style="padding: 10px; margin-top: 50px;" class="grey-text">No posts yet.</h3>
-
-        <a href="{% url 'create' %}" class="btn btn-large grey">
+  <div style="margin-bottom: 50px; margin-top: 50px; padding: 40px 0px; border: 4px #9e9e9e solid; border-style: dashed;" 
+        class="nopost-wrapper container center">
+    <h5 style="padding: 10px; margin-top: 0px;" class="grey-text">No posts yet.</h5>
+        <a href="{% url 'create' %}" class="btn waves-effect grey">
             <i class="material-icons white-text left">add_circle</i>
             <span class="bold">Add a post</span>
         </a>
-
 </div>
   {% endif %}
 </div>

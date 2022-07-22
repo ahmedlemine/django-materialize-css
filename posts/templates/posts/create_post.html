@@ -2,7 +2,7 @@
 {% load humanize %}
 
 {% block content %}
-    <H3 class="teal-text lighten-4"">Create a Posts</H3>
+    <H4 class="teal-text lighten-4"">Create a Posts</H4>
         <form action="." method='POST' class="col s12">
             {% csrf_token %}
             {{ form.as_p }}
