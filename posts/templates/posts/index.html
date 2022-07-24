@@ -6,16 +6,15 @@
 <div class="row">
   <div class="col s12">
     <div class="input-field">
-      <i class="material-icons prefix">search</i>
       <input type="text" name="q"
-      hx-get="/search"
-      hx-trigger="keyup changed delay:100ms"
-      hx-target="#search-results"
-      hx-swap="innerHTML"
-      placeholder="Search..."
+        hx-get="/search"
+        hx-trigger="keyup changed delay:100ms"
+        hx-target="#search-results"
+        hx-swap="innerHTML"
+        placeholder="Search..."
       >
     </div>
-    <div id="search-results" class="z-depth-2">
+    <div id="search-results" class="scale-transition scale-in">
     </div>
   </div>
 </div>
@@ -27,7 +26,7 @@
         <button hx-get="{% url 'htmx-create' %}"
         hx-target="#post-list-template"
         hx-swap="outerHtml"
-        class="waves-effect waves-light btn-small teal">
+        class="waves-effect waves-light btn-small indigo lighten-1">
         Add a post</button>
       </span>
     </H3>
@@ -63,12 +62,16 @@
         <h4>Create a new post</h4>
       <form id="post-form" action="{% url 'create' %}" method='POST' enctype="multipart/form-data" class="">
         {% csrf_token %}
-        <label for="id_title">Title:</label>
-        <input type="text" name="title" maxlength="200" required id="id_title">
-        <label for="id_body">Body:</label>
-        <textarea name="body" cols="40" rows="20" class="materialize-textarea" required id="id_body">
-        </textarea>
-        <label for="id_image">Image:</label>
+        <div class="input-field">
+          <label for="id_title">Title:</label>
+          <input type="text" name="title" maxlength="200" required id="id_title" class="validate">
+        </div>
+        <div class="input-field">
+          <label for="id_body">Body:</label>
+          <textarea name="body" cols="40" rows="20" class="materialize-textarea validate" required id="id_body">
+          </textarea>
+        </div>
+          <label for="id_image">Image:</label>
         <input type="file" name="image" accept="image/*" id="id_image">
         <p>
         <button class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Create
@@ -88,7 +91,7 @@
 <div id="post-edit-modal" class="modal">
   <div class="modal-content">
     <h4>Edit Post</h4>
-          <form id="post-update-form"></form>
+        <form id="post-update-form"></form>
     </div>
   <div class="modal-footer">
     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
