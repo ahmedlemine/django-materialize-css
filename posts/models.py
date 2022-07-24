@@ -11,9 +11,11 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = AutoSlugField(unique=True, always_update=False, populate_from="title")
     body = models.TextField()
+    image = models.ImageField(upload_to='images/', default='blank.png')
     added = models.DateTimeField(auto_now_add=True)
 
-    objects= CustomPostManger()
+
+    objects = CustomPostManger()
 
     def __str__(self):
         return self.title

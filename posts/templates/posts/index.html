@@ -3,39 +3,49 @@
 
 {% block content %}
 
+<div class="row">
+  <div class="col s12">
+    <div class="input-field">
+      <i class="material-icons prefix">search</i>
+      <input type="text" name="q"
+      hx-get="/search"
+      hx-trigger="keyup changed delay:100ms"
+      hx-target="#search-results"
+      hx-swap="innerHTML"
+      placeholder="Search..."
+      >
+    </div>
+    <div id="search-results" class="z-depth-2">
+    </div>
+  </div>
+</div>
 
-      <div class="search-field">
-        <i class="material-icons prefix">search</i>
-        <input type="text" name="q"
-        hx-get="/search"
-        hx-trigger="keyup changed delay:100ms"
-        hx-target="#search-results"
-        hx-swap="innerHTML"
-        placeholder="Search..."
-        >
-      </div>
-      <ul id="search-results"></ul>
+<div class="row">
+  <div class="col s12">
+    <H3 class="purple-text text-darken-3">Latest Posts
+      <span>
+        <button hx-get="{% url 'htmx-create' %}"
+        hx-target="#post-list-template"
+        hx-swap="outerHtml"
+        class="waves-effect waves-light btn-small teal">
+        Add a post</button>
+      </span>
+    </H3>
+  </div>
+</div>
 
-
-<H3 class="teal-text lighten-4"">Latest Posts
-<span>
-  <button hx-get="{% url 'htmx-create' %}"
-  hx-target="#post-add-form"
-  hx-swap="outerHtml"
-  class="waves-effect waves-light btn-small blue">
-  Add a post</button>
-</span>
-</H3>
 <!-- htmx target for create form -->
 <div id="post-add-form"></div>
-<br>
+
 <div id="post-list-template">
+
 {% include 'posts/_post_list.html' %}
+
 </div>
 <br>
 <!-- floating action buttons -->
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large red">
+    <a class="btn-floating btn-large purple darken-3">
       <i class="large material-icons">add</i>
     </a>
     <ul>
@@ -51,21 +61,26 @@
     <div id="modal1" class="modal bottom-sheet">
       <div class="modal-content">
         <h4>Create a new post</h4>
-      <form id="post-form" action="{% url 'create' %}" method='POST' class="">
+      <form id="post-form" action="{% url 'create' %}" method='POST' enctype="multipart/form-data" class="">
         {% csrf_token %}
         <label for="id_title">Title:</label>
         <input type="text" name="title" maxlength="200" required id="id_title">
         <label for="id_body">Body:</label>
-        <textarea name="body" cols="40" rows="10" class="materialize-textarea" required id="id_body">
+        <textarea name="body" cols="40" rows="20" class="materialize-textarea" required id="id_body">
         </textarea>
-          <button class="btn btn-small waves-effect waves-light" type="submit" name="action">Create
-              <i class="material-icons right">send</i>
-          </button>
+        <label for="id_image">Image:</label>
+        <input type="file" name="image" accept="image/*" id="id_image">
+        <p>
+        <button class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Create
+            <i class="material-icons right">send</i>
+        </button>
+        <br>
+        </p>
       </form>
-        </div>
-      <div class="modal-footer">
+</div>
+      <!-- <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      </div>
+      </div> -->
     </div>
     <!-- end modal -->
 
@@ -76,12 +91,9 @@
           <form id="post-update-form"></form>
     </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Discard</a>
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
   </div>
 </div>
 <!-- end modal -->
     
     {% endblock content %}
-    <script>
-              
-    </script>

@@ -1,32 +1,38 @@
 {% extends 'posts/base.html' %}
+{% load static %}
 {% load humanize %}
 
 {% block content %}
-<h3 class="flow-text">{{ post.title }}</h3>
+<div class="section">
+<h3 class="flow-text purple-text text-darken-3">{{ post.title }}</h3>
+<div class="card">
+  <div class="card-image waves-effect waves-block waves-light">
+    <img class="activator" src="{{ post.image.url }}">
+  </div>
+</div>
+<div class="section" id="post-meta">
     <button data-target="modal1" class="modal-trigger btn-floating blue lighten-1"
         hx-get="{% url 'htmx-update' post.slug %}"
         hx-target="#post-update-form"
         hx-swap="outerHTML">
-        <i class="material-icons left">mode_edit</i>
+        <i class="material-icons right">mode_edit</i>
     </button>
-        <a href="{% url 'delete' post.slug %}" class="btn-floating waves-effect waves-light btn red"><i class="material-icons left">delete</i></a>
+        <a href="{% url 'delete' post.slug %}" class="btn-floating waves-effect waves-light btn red">
+          <i class="material-icons right">delete</i></a>
+</div>
 
-
-<br/> <br>
 <div class="grey-text">
         <span>{{ post.added|timesince }} ago </span>
         <span><i class="material-icons tiny">remove_red_eye</i> 1399</span>
 </div>
 
 <p class="flow-text">{{ post.body }}</p>
-<br>
-<br>
-
+</div>
 <!-- edit post Modal -->
 <div id="modal1" class="modal">
         <div class="modal-content">
           <h4>Edit Post</h4>
-                <form id="post-update-form"></form>
+                <form id="post-update-form" enctype="multipart/form-data"></form>
           </div>
         <div class="modal-footer">
           <a href="#!" class="modal-close waves-effect waves-green btn-flat">Discard</a>

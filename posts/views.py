@@ -38,7 +38,7 @@ def create_post(request):
     form = PostForm()
 
     if request.method == 'POST':
-        form = PostForm(request.POST or None)
+        form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             # title = form.cleaned_data['title']
             # body = form.cleaned_data['body']
@@ -47,7 +47,7 @@ def create_post(request):
             form.save()
             return redirect('index')
         else:
-            form = PostForm(request.POST or None)
+            form = PostForm(request.POST, request.FILES or None)
     
     form = PostForm()
     context = {
@@ -65,14 +65,15 @@ def update_post(request, slug):
     form = PostForm(instance=p)
 
     if request.method == 'POST':
-        form = PostForm(request.POST or None)
+        form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             p.title = form.cleaned_data['title']
             p.body = form.cleaned_data['body']
+            p.image = form.cleaned_data['image']
             p.save()
             return redirect('/')
         else:
-            form = PostForm(request.POST or None)
+            form = PostForm(request.POST, request.FILES or None)
     
     context = {
         'form': form
@@ -101,7 +102,7 @@ def create_post_form(request):
     form = PostForm()
 
     if request.method == 'POST':
-        form = PostForm(request.POST or None)
+        form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             form.save()
             posts = Post.objects.all()
@@ -110,7 +111,7 @@ def create_post_form(request):
             }
             return render(request, 'posts/_post_list.html', context)
         else:
-            form = PostForm(request.POST or None)
+            form = PostForm(request.POST, request.FILES or None)
     
     form = PostForm()
     context = {
@@ -124,19 +125,20 @@ def update_post_form(request, slug):
     form = PostForm(instance=p)
 
     if request.method == 'POST':
-        form = PostForm(request.POST or None)
+        form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             p.title = form.cleaned_data['title']
             p.body = form.cleaned_data['body']
+            p.image = form.cleaned_data['image']
             p.save()
             # posts = Post.objects.all()
             context = {
                 'post': p
             }
             # return render(request, 'posts/post_detail.html', context)
-            return redirect('detail', slug=p.slug)
+            return redirect('/')
         else:
-            form = PostForm(request.POST or None)
+            form = PostForm(request.POST, request.FILES or None)
     
     context = {
         'post': p,

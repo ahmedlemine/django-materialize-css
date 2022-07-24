@@ -1,10 +1,12 @@
 {% load humanize %}
-
-  {% if post_list %}
+{% if post_list %}
+<ul>
     {% for post in post_list %}
         <li><a href="{% url 'detail' post.slug %}"><b>{{post.title}}</b></a></li>
     {% endfor %}
-    <hr/>
-  {% else %}
-    <li onclick="M.toast({html: 'No results found.'})"><b>no results</b></li>  
-  {% endif %}
+</ul>
+{% else %}
+<ul>
+    <li onclick="M.toast({html: 'No results found.'})"><b>no results</b></li>
+</ul>
+{% endif %}
