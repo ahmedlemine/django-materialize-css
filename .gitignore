@@ -319,7 +319,7 @@ Session.vim
 tags
 
 ### Project template
-everycheese/media/
+/media/
 
 .pytest_cache/
 

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 # from turtle import update
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from posts.views import (
             Index,
             PostDelete,
@@ -27,4 +27,5 @@ urlpatterns = [
     path('htmx_create/', create_post_form, name='htmx-create'),
     # admin
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

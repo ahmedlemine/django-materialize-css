@@ -1,9 +1,10 @@
+{% load materializecss %}
 <!--  post form for Modal partial template -->
       <div>
         <h5 class="grey-text">Add a new post</h5>
         <form action="{% url 'create' %}" method='POST' enctype="multipart/form-data" class="">
           {% csrf_token %}
-          {{ form.as_p }}
+          {{ form|materializecss }}
             <button class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Add
                 <i class="material-icons right">send</i>
             </button>

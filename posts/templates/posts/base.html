@@ -1,4 +1,5 @@
 {% load static %}
+{% load materializecss %}
 {% load humanize %}
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Django Blog</title>
+        <title>Django</title>
     </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
@@ -22,7 +23,7 @@
     <nav class="purple darken-3">
       <div class="container">
         <div class="nav-wrapper">
-          <a href="/" class="brand-logo flow-text">Django Blog</a>
+          <a href="/" class="brand-logo flow-text">Django</a>
           <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
           <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
@@ -33,9 +34,21 @@
             <li>
               <a href="/">Posts</a>
             </li>
+            {% if user.is_authenticated %}
             <li>
               <a href="{% url 'create' %}">Add+</a>
             </li>
+            <li>
+              <a href="{% url 'account_logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+              <a href="{% url 'account_login' %}">Login</a>
+            </li>
+            <li>
+              <a href="{% url 'account_signup' %}">Signup</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -43,21 +56,38 @@
   </div>
   <!-- sidenav slideout -->
   <ul id="slide-out" class="sidenav">
+    {% if user.is_authenticated %}
     <li><div class="user-view">
       <div class="background">
         <img src="{% static 'posts/images/office.jpg' %}">
       </div>
       <a href="#user"><img class="circle" src="{% static 'posts/images/user_avatar.jpg' %}"></a>
-      <a href="#name"><span class="white-text name">Ahmed</span></a>
+      <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
+      <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
+    </div></li>
+    {% else %}
+    <li><div class="user-view">
+      <div class="background">
+        <img src="{% static 'posts/images/office.jpg' %}">
+      </div>
+      <a href="#user"><img class="circle" src="{% static 'posts/images/user_avatar.jpg' %}"></a>
+      <a href="#name"><span class="white-text name">User</span></a>
       <a href="#email"><span class="white-text email">example@gmail.com</span></a>
     </div></li>
+    {% endif %}
+
     <li><a class="waves-effect" href="/"><i class="material-icons">home</i>Home</a></li>
-    <li><a class="waves-effect" href="/"><i class="material-icons">timeline</i>Posts</a></li>
+    <li><a class="waves-effect" href="/"><i class="material-icons">list</i>Posts</a></li>
     <li><a class="waves-effect" href="{% url 'create' %}"><i class="material-icons">add</i>New Post</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Account</a></li>
-    <li><a class="waves-effect" href="#!"><i class="material-icons">account_circle</i>Profile</a></li>
-    <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Logout</a></li>
+    {% if user.is_authenticated %}
+      <li><a class="waves-effect" href="#!"><i class="material-icons">account_circle</i>Profile</a></li>
+      <li><a class="waves-effect" href="{% url 'account_logout' %}"><i class="material-icons">highlight_off</i>Logout</a></li>
+    {% else %}
+      <li><a class="waves-effect" href="{% url 'account_login' %}"><i class="material-icons">exit_to_app</i>Login</a></li>
+      <li><a class="waves-effect" href="{% url 'account_signup' %}"><i class="material-icons">launch</i>Signup</a></li>
+    {% endif %}
   </ul>
 
     <div class="container">
