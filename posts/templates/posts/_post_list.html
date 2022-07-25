@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load hitcount_tags %}
 
 <div id="post-list">
   <div class="row">
@@ -32,13 +33,15 @@
                     <i class="material-icons">delete</i>
                 </a>
                 {% endif %}
-
                 <a href="" class="grey-text">
                     <i class="material-icons">favorite_border</i>
                 </a>
                 <a href="" class="grey-text">
                   <i class="material-icons">sms</i>
                 </a>
+            </span>
+            <span class="flow-text grey-text vertical-align">
+              {% get_hit_count for post %} views
             </span>
           </div>
           <div class="card-reveal">

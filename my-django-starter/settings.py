@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'materializecssform',
+    'hitcount',
 
     # local
     'accounts',

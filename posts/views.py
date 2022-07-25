@@ -13,8 +13,6 @@ from .forms import PostForm
 
 class Index(ListView):
     model = Post
-    # context_object_name = 'objects'
-    
     template_name = 'posts/index.html'
     
     # convert views to K or M
@@ -26,10 +24,23 @@ class Index(ListView):
             views = "%.0f%s" % (views/1000.0, 'k')
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['views'] = self.views
-        return context
+        context = super(Index, self).get_context_data(**kwargs)
+        context.update({
+        'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:3],
+        })
+        return context  
 
+class PostDetail(DetailView):
+    model = Post
+    template_name = 'posts/post_detail.html'
+    count_hit = True
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data(**kwargs)
+        context.update({
+        'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:3],
+        })
+        return context    
  
 class PostDelete(DeleteView):
     model = Post
@@ -54,9 +65,6 @@ def create_post(request):
     }
     return render(request, 'posts/create_post.html', context)
 
-class PostDetail(DetailView):
-    model = Post
-    template_name = 'posts/post_detail.html'
 
 @login_required
 def update_post(request, slug):

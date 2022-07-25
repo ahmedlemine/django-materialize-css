@@ -2,6 +2,9 @@ from autoslug import AutoSlugField
 from django.urls import reverse
 from django.db import models
 
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
+
 class CustomPostManger(models.Manager):
     def get_queryset(self):
         return super().get_queryset().order_by('-added')
@@ -13,6 +16,16 @@ class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='images/', default='images/blank.png')
     added = models.DateTimeField(auto_now_add=True)
+    hit_count_generic = GenericRelation(
+                HitCount,
+                object_id_field='object_pk',
+                related_query_name='hit_count_generic_relation'
+                )
+    # hit_count_generic = GenericRelation(
+    #             HitCount,
+    #             object_id_field='object_pk',
+    #             related_query_name='hit_count_generic_relation'
+    #             )
 
 
     objects = CustomPostManger()
