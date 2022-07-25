@@ -29,14 +29,14 @@
           <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
            <ul class="right hide-on-med-and-down">
             <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
               <a href="/">Posts</a>
             </li>
             {% if user.is_authenticated %}
             <li>
-              <a href="{% url 'create' %}">Add+</a>
+              <a href="{% url 'posts:create' %}">Add+</a>
+            </li>
+            <li>
+              <a href="{% url 'accounts:profile' %}">Profile</a>
             </li>
             <li>
               <a href="{% url 'account_logout' %}">Logout</a>
@@ -59,30 +59,30 @@
     {% if user.is_authenticated %}
     <li><div class="user-view">
       <div class="background">
-        <img src="{% static 'posts/images/office.jpg' %}">
+        <img src="{% static 'images/office.jpg' %}">
       </div>
-      <a href="#user"><img class="circle" src="{% static 'posts/images/user_avatar.jpg' %}"></a>
+      <a href="#user"><img class="circle" src="{{ user.userprofile.avatar.url }}"></a>
       <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
       <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
     </div></li>
     {% else %}
     <li><div class="user-view">
       <div class="background">
-        <img src="{% static 'posts/images/office.jpg' %}">
+        <img src="{% static 'images/office.jpg' %}">
       </div>
-      <a href="#user"><img class="circle" src="{% static 'posts/images/user_avatar.jpg' %}"></a>
-      <a href="#name"><span class="white-text name">User</span></a>
-      <a href="#email"><span class="white-text email">example@gmail.com</span></a>
+      <a href="#user"><img class="circle" src="/media/avatars/user_avatar.png"></a>
+      <a href="#name"><span class="white-text name">guest</span></a>
+      <a href="#email"><span class="white-text email">no email</span></a>
     </div></li>
     {% endif %}
 
     <li><a class="waves-effect" href="/"><i class="material-icons">home</i>Home</a></li>
     <li><a class="waves-effect" href="/"><i class="material-icons">list</i>Posts</a></li>
-    <li><a class="waves-effect" href="{% url 'create' %}"><i class="material-icons">add</i>New Post</a></li>
+    <li><a class="waves-effect" href="{% url 'posts:create' %}"><i class="material-icons">add</i>New Post</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Account</a></li>
     {% if user.is_authenticated %}
-      <li><a class="waves-effect" href="#!"><i class="material-icons">account_circle</i>Profile</a></li>
+      <li><a class="waves-effect" href="{% url 'accounts:profile' %}"><i class="material-icons">account_circle</i>Profile</a></li>
       <li><a class="waves-effect" href="{% url 'account_logout' %}"><i class="material-icons">highlight_off</i>Logout</a></li>
     {% else %}
       <li><a class="waves-effect" href="{% url 'account_login' %}"><i class="material-icons">exit_to_app</i>Login</a></li>
@@ -91,10 +91,13 @@
   </ul>
 
     <div class="container">
-        {% block content %}
+      
+{% block content %}
 
-        {% endblock content %}
+{% endblock content %}
     </div>
+  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
     

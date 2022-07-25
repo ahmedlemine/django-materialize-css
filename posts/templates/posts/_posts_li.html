@@ -2,7 +2,7 @@
 {% if post_list %}
 <ul>
     {% for post in post_list %}
-        <li><a href="{% url 'detail' post.slug %}"><b>{{post.title}}</b></a></li>
+        <li><a href="{% url 'posts:detail' post.slug %}"><b>{{post.title}}</b></a></li>
     {% endfor %}
 </ul>
 {% else %}
