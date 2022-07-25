@@ -1,43 +1,57 @@
-{% extends 'posts/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
 
 {% block content %}
 <div class="section">
-<h3 class="flow-text purple-text text-darken-3">{{ post.title }}</h3>
+<h2 class="flow-text purple-text text-darken-3">{{ post.title }}</h2>
 <div class="card">
   <div class="card-image waves-effect waves-block waves-light">
     <img class="activator" src="{{ post.image.url }}">
   </div>
 </div>
-<div class="section" id="post-meta">
-    <button data-target="modal1" class="modal-trigger btn-floating blue lighten-1"
-        hx-get="{% url 'htmx-update' post.slug %}"
-        hx-target="#post-update-form"
-        hx-swap="outerHTML">
-        <i class="material-icons right">mode_edit</i>
-    </button>
-        <a href="{% url 'delete' post.slug %}" class="btn-floating waves-effect waves-light btn red">
+{% if user.is_authenticated %}
+    <div class="section" id="post-meta">
+        <a href="{% url 'posts:update' post.slug %}" class="btn-floating waves-effect waves-light btn teal">
+          <i class="material-icons right">edit</i></a>
+        <!-- <a href="{% url 'posts:delete' post.slug %}" class="btn-floating waves-effect waves-light btn red">
+          <i class="material-icons right">delete</i></a> -->
+        <a href="#post-delete-modal"
+          class="btn-floating waves-effect waves-light btn red modal-trigger">
           <i class="material-icons right">delete</i></a>
-</div>
+    </div>
+{% endif %}
+
 
 <div class="grey-text">
         <span>{{ post.added|timesince }} ago </span>
-        <span><i class="material-icons tiny">remove_red_eye</i> 1399</span>
+        <span><i class="material-icons tiny">remove_red_eye</i> ?</span>
 </div>
 
 <p class="flow-text">{{ post.body }}</p>
 </div>
-<!-- edit post Modal -->
-<div id="modal1" class="modal">
-        <div class="modal-content">
-          <h4>Edit Post</h4>
-                <form id="post-update-form" enctype="multipart/form-data"></form>
-          </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Discard</a>
-        </div>
-      </div>
-      <!-- end modal -->
+
+
+ <!-- delete post Modal -->
+ <div id="post-delete-modal" class="modal">
+  <div class="modal-content">
+    <H5 class="flow-text purple-text darken-3"">Delete Post</H5>
+    <p class="">Are you sure you want to delete this post
+        <span class="teal-text"> {{ post.title }}</span></hp>
+
+        <form action="." method='POST' class="col s12">
+            {% csrf_token %}
+            <button class="btn waves-effect waves-light red center"
+                type="submit" name="action">Yes, Delete
+                <i class="material-icons left">delete</i>
+            </button>
+        </form>
+    </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+      Cancel</a>
+  </div>
+</div>
+<!-- end modal -->    
 {% endblock content %}
 

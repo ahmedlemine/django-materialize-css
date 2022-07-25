@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
@@ -29,23 +30,21 @@ class Index(ListView):
         context['views'] = self.views
         return context
 
+ 
 class PostDelete(DeleteView):
     model = Post
     template_name = 'posts/delete_post.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('posts:index')
 
+@login_required
 def create_post(request):
     form = PostForm()
 
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
-            # title = form.cleaned_data['title']
-            # body = form.cleaned_data['body']
-            # new_post = Post.objects.create(title=title, body=body)
-            # new_post.save()
             form.save()
-            return redirect('index')
+            return redirect('/')
         else:
             form = PostForm(request.POST, request.FILES or None)
     
@@ -59,7 +58,7 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
 
-
+@login_required
 def update_post(request, slug):
     p = Post.objects.get(slug=slug)
     form = PostForm(instance=p)
@@ -71,14 +70,14 @@ def update_post(request, slug):
             p.body = form.cleaned_data['body']
             p.image = form.cleaned_data['image']
             p.save()
-            return redirect('/')
+            return render(request, 'posts/post_detail.html', {'post': p})
         else:
             form = PostForm(request.POST, request.FILES or None)
     
     context = {
         'form': form
     }
-    return render(request, 'posts/post_update.html', context)
+    return render(request, 'posts/update_post.html', context)
 
 # def index_view(request):
 #     qs = Post.objects.all()
@@ -87,6 +86,7 @@ def update_post(request, slug):
 #     }
     
 #     return render(request, 'posts/index.html', context)
+@login_required
 @require_http_methods(['DELETE'])
 def delete_post_htmx(request, slug):
     post = Post.objects.get(slug=slug)
@@ -97,7 +97,10 @@ def delete_post_htmx(request, slug):
     }
     return render(request, 'posts/_post_list.html', context)
     # return HttpResponse(f"Post: '{post.title}' successfully deleted.") 
+
+
 # HTMX form to return in partial template
+@login_required
 def create_post_form(request):
     form = PostForm()
 
@@ -120,6 +123,7 @@ def create_post_form(request):
     return render(request, 'posts/_post_form.html', context)
 
 
+@login_required
 def update_post_form(request, slug):
     p = Post.objects.get(slug=slug)
     form = PostForm(instance=p)

@@ -1,4 +1,4 @@
-{% extends 'posts/base.html' %}
+{% extends 'base.html' %}
 {% load humanize %}
 
 {% block content %}
@@ -22,13 +22,15 @@
 <div class="row">
   <div class="col s12">
     <H3 class="purple-text text-darken-3">Latest Posts
+      {% if user.is_authenticated %}
       <span>
-        <button hx-get="{% url 'htmx-create' %}"
+        <button hx-get="{% url 'posts:htmx-create' %}"
         hx-target="#post-list-template"
         hx-swap="outerHtml"
         class="waves-effect waves-light btn-small indigo lighten-1">
         Add a post</button>
       </span>
+      {% endif %}
     </H3>
   </div>
 </div>
@@ -51,52 +53,10 @@
       <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
       <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
       <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-      <li><a data-target="modal1" class="btn-floating modal-trigger red"><i class="material-icons">add</i></a></li>
+      <li><a href="{% url 'posts:create' %}" class="btn-floating modal-trigger red">
+          <i class="material-icons">add</i></a>
+        </li>
     </ul>
   </div>
 
-
-    <!-- Create post Modal -->
-    <div id="modal1" class="modal bottom-sheet">
-      <div class="modal-content">
-        <h4>Create a new post</h4>
-      <form id="post-form" action="{% url 'create' %}" method='POST' enctype="multipart/form-data" class="">
-        {% csrf_token %}
-        <div class="input-field">
-          <label for="id_title">Title:</label>
-          <input type="text" name="title" maxlength="200" required id="id_title" class="validate">
-        </div>
-        <div class="input-field">
-          <label for="id_body">Body:</label>
-          <textarea name="body" cols="40" rows="20" class="materialize-textarea validate" required id="id_body">
-          </textarea>
-        </div>
-          <label for="id_image">Image:</label>
-        <input type="file" name="image" accept="image/*" id="id_image">
-        <p>
-        <button class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Create
-            <i class="material-icons right">send</i>
-        </button>
-        <br>
-        </p>
-      </form>
-</div>
-      <!-- <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      </div> -->
-    </div>
-    <!-- end modal -->
-
- <!-- edit post Modal -->
-<div id="post-edit-modal" class="modal">
-  <div class="modal-content">
-    <h4>Edit Post</h4>
-        <form id="post-update-form"></form>
-    </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-  </div>
-</div>
-<!-- end modal -->
-    
-    {% endblock content %}
+{% endblock content %}
