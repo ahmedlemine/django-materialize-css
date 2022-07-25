@@ -15,15 +15,26 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Django</title>
+        <title>Django Starter</title>
     </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
   <div class="navbar-fixed">
     <nav class="purple darken-3">
       <div class="container">
+        <!-- Nav Dropdown -->
+            <ul id="dropdown1" class="dropdown-content">
+              <li>
+                <a href="{% url 'accounts:profile' %}">Profile</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="{% url 'account_logout' %}">Logout</a>
+              </li>
+            </ul>
+        <!-- end nav dropdown -->
         <div class="nav-wrapper">
-          <a href="/" class="brand-logo flow-text">Django</a>
+          <a href="/" class="brand-logo flow-text">Django Starter</a>
           <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
           <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
@@ -35,12 +46,13 @@
             <li>
               <a href="{% url 'posts:create' %}">Add+</a>
             </li>
-            <li>
-              <a href="{% url 'accounts:profile' %}">Profile</a>
-            </li>
-            <li>
-              <a href="{% url 'account_logout' %}">Logout</a>
-            </li>
+
+            <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger btn-floating" href="#!" data-target="dropdown1">
+          <i class="material-icons right">person</i>
+            <!-- <i class="material-icons right">more_vert</i> -->
+          </a></li>
+    
             {% else %}
             <li>
               <a href="{% url 'account_login' %}">Login</a>

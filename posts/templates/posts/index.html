@@ -43,19 +43,9 @@
 {% include 'posts/_post_list.html' %}
 
 </div>
-<div class="col s12 m6">
-<section>
-  <ul class="collection with-header">
-    <li class="collection-header"><h4>Popular Posts</h4></li>
-    {% for post in popular_posts %}
-      <li class="collection-item">
-        <a href="{% url 'posts:detail' post.slug %}">{{ post.title }}
-        </a></li>
-    {% endfor %}
-  </ul>
-</section>
-</div>
-<br>
+
+{% include 'posts/_popular_posts.html' %}
+
 <!-- floating action buttons -->
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large purple darken-3">
