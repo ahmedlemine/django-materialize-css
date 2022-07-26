@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
@@ -9,19 +10,25 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from .models import Post
 from .forms import PostForm
 
+class UserIsOwnerMixin(AccessMixin):
+    """Verify that the user is the owner of related object.
+        owner_id_field => leave as is. but after '=' put
+        the model field realted to owner. like 'user',
+        'creator', 'created_by', 'author'. 
+    """
+    owner_id_field = 'creator'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or getattr(self.get_object(), self.owner_id_field) != request.user.pk:
+            return self.handle_no_permission()
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 class Index(ListView):
     model = Post
     template_name = 'posts/index.html'
     
-    # convert views to K or M
-    views = 40000
-    if views >= 1000000:
-        views = "%.0f%s" % (views/1000000.00, 'M')
-    else:
-        if views >= 1000:
-            views = "%.0f%s" % (views/1000.0, 'k')
-
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
         context.update({
@@ -37,11 +44,11 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context.update({
-        'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:3],
+        'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
         })
         return context    
  
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
     model = Post
     template_name = 'posts/delete_post.html'
     success_url = reverse_lazy('posts:index')
@@ -53,7 +60,9 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
-            form.save()
+            new_post = form.save(commit=False)
+            new_post.creator = request.user
+            new_post.save()
             messages.success(request, 'New post created successfully')
             return redirect('/')
         else:
@@ -70,17 +79,27 @@ def create_post(request):
 @login_required
 def update_post(request, slug):
     p = Post.objects.get(slug=slug)
+    
+    if p.creator != request.user:
+        messages.error(request, 'Ownership error! You are not allowed to edit this post.')
+        return redirect('/')
+    
     form = PostForm(instance=p)
 
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES or None)
+        
         if form.is_valid():
             p.title = form.cleaned_data['title']
             p.body = form.cleaned_data['body']
             p.image = form.cleaned_data['image']
             p.save()
             messages.success(request, 'post updated successfully')
-            return render(request, 'posts/post_detail.html', {'post': p})
+            context = {
+                'post': p,
+                'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
+            }
+            return render(request, 'posts/post_detail.html', context)
         else:
             messages.success(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)

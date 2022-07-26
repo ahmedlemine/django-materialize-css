@@ -5,35 +5,36 @@
 
 {% block content %}
 <div class="section">
-<h2 class="flow-text purple-text text-darken-3">{{ post.title }}</h2>
-<div class="card">
-  <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="{{ post.image.url }}">
+<h1 class="flow-text purple-text text-darken-3">{{ post.title }}</h1>
+  <div class="">
+    <img class="materialboxed responsive-img" src="{{ post.image.url }}">
   </div>
-</div>
+
 {% if user.is_authenticated %}
     <div class="section" id="post-meta">
         <a href="{% url 'posts:update' post.slug %}"
-        class="btn-floating waves-effect waves-light btn teal">
+        class="btn-floating btn-flat waves-effect waves-light btn teal">
           <i class="material-icons right">edit</i></a>
         <!-- <a href="{% url 'posts:delete' post.slug %}" class="btn-floating waves-effect waves-light btn red">
           <i class="material-icons right">delete</i></a> -->
         <a href="#post-delete-modal"
-          class="btn-floating waves-effect waves-light btn red modal-trigger">
+          class="btn-floating btn-flat waves-effect waves-light btn red modal-trigger">
           <i class="material-icons right">delete</i></a>
     </div>
 {% endif %}
 
 
 <div class="grey-text">
+        <span>by: {{ post.creator.userprofile.name }} | </span>
         <span>{{ post.added|timesince }} ago </span>
         <span> - {% get_hit_count for post %} views</span>
 </div>
-
+<hr class="grey-text text-lighten-4">
 <p class="flow-text">{{ post.body }}</p>
 </div>
-
-{% include 'posts/_popular_posts.html' %}
+{% if popular_posts %}
+  {% include 'posts/_popular_posts.html' %}
+{% endif %}
 
  <!-- delete post Modal -->
  <div id="post-delete-modal" class="modal">
@@ -58,3 +59,12 @@
 <!-- end modal -->    
 {% endblock content %}
 
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let mboxed = document.querySelectorAll('.materialboxed')
+      let instances = M.Materialbox.init(mboxed, {})
+    })
+</script>
+
+{% endblock script %}

@@ -107,7 +107,7 @@
       {% if messages %}
       <ul class="collection purple-text text-darken-4" style="display: none;">
             {% for message in messages %}
-            <li id="msg" {% if message.tags %} class="{{ message.tags }} collection-item indigo lighten-5"{% endif %}"><strong>{{ message }}</strong></li>
+            <li id="dj-msg" {% if message.tags %} class="{{ message.tags }} collection-item indigo lighten-5"{% endif %}"><strong>{{ message }}</strong></li>
             {% endfor %}
       </ul>
       {% endif %}
@@ -116,7 +116,10 @@
 
 {% endblock content %}
     </div>
-  
+
+{% block script %}
+
+{% endblock script %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
@@ -167,8 +170,11 @@
 
         // show messages as materialize toast
         document.addEventListener('DOMContentLoaded', function msgToast() {
-              let msg = document.getElementById('msg').textContent
-              M.toast({html: msg }) 
+              let msgEl = document.getElementById('dj-msg')
+              if (msgEl != null) {
+                let msg = msgEl.textContent
+                M.toast({html: msg }) 
+            }
           })
         // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
         // var collapsibleElem = document.querySelector('.collapsible');

@@ -5,14 +5,14 @@ from django.db.models.signals import post_save
 
 
 class CustomUser(AbstractUser):
-    # add additional fields in here
     pass
 
     def __str__(self):
-        return self.email
+        return self.username
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=25, default='new user', blank=True)
     bio = models.CharField(max_length=250, default='', blank=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/user_avatar.png')
     

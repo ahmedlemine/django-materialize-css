@@ -4,43 +4,69 @@
 
 {% block content %}
 <div class="row">
-    <div class="col s12 m6">
-        <h4 class="purple-text text-darken-3">Profile</h4>
-              <div class="card">
-                <div class="card-image">
-                  <img src="{{ user.userprofile.avatar.url }}">
-                  <span class="card-title">{{ user.userprofile.username }}</span>
-                  <a href="#profile-form" onClick="showUpdateForm()" class="btn-floating halfway-fab waves-effect waves-light red">
-                    <i class="material-icons">edit</i>
-                    </a>
-                </div>
-                <div class="card-content">
-                  <p>{{ user.email }}</p>
-                  <p>{{ user.userprofile.bio }}</p>
-                </div>
-              </div>  
+<!-- profile chip -->
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+  <h4 class="purple-text text-darken-3">My Profile</h4>
+
+  <div class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        <img src="{{ user.userprofile.avatar.url }}" alt="{{user.userprofile.name}} avatar" class="circle responsive-img"> <!-- notice the "circle" class -->
+      </div>
+      <div class="black-text col s10">
+        <p>Name: {{ user.userprofile.name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Bio: {{ user.userprofile.bio }}</p>
+        <a href="#profile-form" onClick="showUpdateForm()" class="btn-floating waves-effect waves-light right red">
+          <i class="material-icons">edit</i>
+          </a>
+      </div>
     </div>
-<div class="row">
-    <div id="profile-update"class="col s12 m8" style="display: none;">
-                <h4 class="purple-text text-darken-3">Update Your Profile</h4>
-                <form id="profile-form" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn">Save</button>
-                </form>
-                
-    </div>
+  </div>
 </div>
-    
-  <section>
-      <ul class="collection with-header">
-        <li class="collection-header"><h5 class="purple-text text-darken-3">Account Actions:</h5></li>
-        <li class="collection-item"><a href="{% url 'account_email' %}">Change email</a></li>
-        <li class="collection-item"><a href="{% url 'account_change_password' %}">Change password</a></li>
-      </ul>
-    </section>
 </div>
 
+<div class="row">
+    <div id="profile-update"class="col s12 m8 offset-m2" style="display: none;">
+        <h4 class="purple-text text-darken-3">Update Your Profile</h4>
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Save</button>
+        </form>      
+    </div>
+</div>
+  <section>
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <ul class="collection with-header">
+          <li class="collection-header"><h5 class="purple-text text-darken-3">Account Actions:</h5></li>
+          <li class="collection-item"><a href="{% url 'account_email' %}">Change email</a></li>
+          <li class="collection-item"><a href="{% url 'account_change_password' %}">Change password</a></li>
+        </ul>
+      </div>
+    </div>
+    </section>
+
+<div class="row">
+  <div class="col s12 m8 offset-m2">
+    <section>
+      {% if posts %}
+      <h4 class="purple-text text-darken-3">My Posts</h4>
+      <div class="collection">
+        {% for post in posts %}
+        <a href="{% url 'posts:detail' post.slug %}" class="collection-item">{{ post.title }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+{% block script %}
 <script>
   // show update profile form
   updateProfielEl = document.getElementById('profile-update')
@@ -48,4 +74,4 @@
     updateProfielEl.style.display = "block"
   }
 </script>
-{% endblock content %}
+{% endblock script %}
