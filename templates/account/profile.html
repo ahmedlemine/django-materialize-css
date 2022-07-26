@@ -35,9 +35,8 @@
   <section>
       <ul class="collection with-header">
         <li class="collection-header"><h5 class="purple-text text-darken-3">Account Actions:</h5></li>
-        <li class="collection-item"><a href="/accounts/email/">Change email</a></li>
-        <li class="collection-item"><a href="/accounts/email/">Change password</a></li>
-        <li class="collection-item"><a href="/accounts/email/">Confirm email</a></li>
+        <li class="collection-item"><a href="{% url 'account_email' %}">Change email</a></li>
+        <li class="collection-item"><a href="{% url 'account_change_password' %}">Change password</a></li>
       </ul>
     </section>
 </div>

@@ -103,7 +103,14 @@
   </ul>
 
     <div class="container">
-      
+
+      {% if messages %}
+      <ul class="collection">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }} teal lighten-2 collection-item"{% endif %}>{{ message }}</li>
+            {% endfor %}
+      </ul>
+      {% endif %}
 {% block content %}
 
 {% endblock content %}

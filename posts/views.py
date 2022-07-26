@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.http import JsonResponse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
@@ -55,8 +54,10 @@ def create_post(request):
         form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
             form.save()
+            messages.success(request, 'New post created successfully')
             return redirect('/')
         else:
+            messages.success(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)
     
     form = PostForm()
@@ -78,8 +79,10 @@ def update_post(request, slug):
             p.body = form.cleaned_data['body']
             p.image = form.cleaned_data['image']
             p.save()
+            messages.success(request, 'post updated successfully')
             return render(request, 'posts/post_detail.html', {'post': p})
         else:
+            messages.success(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)
     
     context = {
