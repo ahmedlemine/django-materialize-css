@@ -105,9 +105,9 @@
     <div class="container">
     <!-- Messages list -->
       {% if messages %}
-      <ul class="collection purple-text text-darken-4">
+      <ul class="collection purple-text text-darken-4" style="display: none;">
             {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }} collection-item indigo lighten-5"{% endif %}><strong>{{ message }}</strong></li>
+            <li id="msg" {% if message.tags %} class="{{ message.tags }} collection-item indigo lighten-5"{% endif %}"><strong>{{ message }}</strong></li>
             {% endfor %}
       </ul>
       {% endif %}
@@ -165,7 +165,11 @@
         var instances = M.Collapsible.init(collaps, {});
         });
 
-
+        // show messages as materialize toast
+        document.addEventListener('DOMContentLoaded', function msgToast() {
+              let msg = document.getElementById('msg').textContent
+              M.toast({html: msg }) 
+          })
         // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
         // var collapsibleElem = document.querySelector('.collapsible');
         // var collapsibleInstance = M.Collapsible.init(collapsibleElem, {});
