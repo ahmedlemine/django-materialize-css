@@ -42,7 +42,7 @@
     <p class="">Are you sure you want to delete this post
         <span class="teal-text"> {{ post.title }}</span></hp>
 
-        <form action="." method='POST' class="col s12">
+        <form action="{% url 'posts:delete' post.slug %}" method='POST' class="col s12">
             {% csrf_token %}
             <button class="btn waves-effect waves-light red center"
                 type="submit" name="action">Yes, Delete
