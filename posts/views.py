@@ -1,29 +1,15 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
+from .mixins import UserIsOwnerMixin
 from .models import Post
 from .forms import PostForm
-
-class UserIsOwnerMixin(AccessMixin):
-    """Verify that the user is the owner of related object.
-        owner_id_field => leave as is. but after '=' put
-        the model field realted to owner. like 'user',
-        'creator', 'created_by', 'author'. 
-    """
-    owner_id_field = 'creator'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or getattr(self.get_object(), self.owner_id_field) != request.user.pk:
-            return self.handle_no_permission()
-
-        return super().dispatch(request, *args, **kwargs)
-
 
 class Index(ListView):
     model = Post
