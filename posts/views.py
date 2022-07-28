@@ -34,7 +34,7 @@ class PostDetail(DetailView):
         })
         return context    
  
-class PostDelete(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+class PostDelete(UserIsOwnerMixin, LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'posts/delete_post.html'
     success_url = reverse_lazy('posts:index')

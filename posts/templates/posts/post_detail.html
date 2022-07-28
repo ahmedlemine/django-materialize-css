@@ -10,24 +10,27 @@
     <img class="materialboxed responsive-img" src="{{ post.image.url }}">
   </div>
 
-{% if user.is_authenticated %}
-    <div class="section" id="post-meta">
-        <a href="{% url 'posts:update' post.slug %}"
-        class="btn-floating btn-flat waves-effect waves-light btn teal">
-          <i class="material-icons right">edit</i></a>
-        <!-- <a href="{% url 'posts:delete' post.slug %}" class="btn-floating waves-effect waves-light btn red">
-          <i class="material-icons right">delete</i></a> -->
-        <a href="#post-delete-modal"
-          class="btn-floating btn-flat waves-effect waves-light btn red modal-trigger">
-          <i class="material-icons right">delete</i></a>
-    </div>
+
+
+<div class="valign-wrapper grey-text section">
+
+  <img src="{{ post.creator.userprofile.avatar.url }}"
+    width="50" height="50"
+  alt="{{post.creator.userprofile.name}} avatar"
+  class="circle responsive-img">
+
+        <span>&nbsp;&nbsp;{{ post.creator.userprofile.name }}&nbsp;&nbsp;|
+        <span>&nbsp;{{ post.added|timesince }} ago &nbsp;
+         |&nbsp; {% get_hit_count for post %} views</span>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+{% if user.is_authenticated and post.creator == user %}
+    <a href="{% url 'posts:update' post.slug %}"
+    class="btn-floating btn-flat waves-effect waves-light btn teal">
+      <i class="material-icons">edit</i></a>
+    <a href="#post-delete-modal"
+      class="btn-floating btn-flat waves-effect waves-light btn red modal-trigger">
+      <i class="material-icons">delete</i></a>
 {% endif %}
-
-
-<div class="grey-text">
-        <span>by: {{ post.creator.userprofile.name }} | </span>
-        <span>{{ post.added|timesince }} ago </span>
-        <span> - {% get_hit_count for post %} views</span>
 </div>
 <hr class="grey-text text-lighten-4">
 <p class="flow-text">{{ post.body }}</p>
