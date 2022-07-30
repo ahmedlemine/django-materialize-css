@@ -130,10 +130,10 @@
         //event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; 
         //})
         // floatin action buttons init
-          document.addEventListener('DOMContentLoaded', function() {
-          var fab = document.querySelectorAll('.fixed-action-btn');
-          var instances = M.FloatingActionButton.init(fab, {});
-          });
+        document.addEventListener('DOMContentLoaded', function() {
+        var fab = document.querySelectorAll('.fixed-action-btn');
+        var instances = M.FloatingActionButton.init(fab, {});
+        });
         // end floating action buttons
 
         // dropdown
@@ -170,7 +170,7 @@
 
         // show messages as materialize toast
         document.addEventListener('DOMContentLoaded', function msgToast() {
-              let msgEl = document.getElementById('dj-msg')
+              const msgEl = document.getElementById('dj-msg')
               if (msgEl != null) {
                 let msg = msgEl.textContent
                 M.toast({html: msg }) 

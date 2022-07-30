@@ -1,5 +1,4 @@
 from django import forms
-
 from .models import Post
 
 class PostForm(forms.ModelForm):
@@ -13,6 +12,7 @@ class PostForm(forms.ModelForm):
                 'class': 'materialize-textarea'
                 }),
         }
+    
 
 # class PostForm(forms.Form):
 #     model = Post

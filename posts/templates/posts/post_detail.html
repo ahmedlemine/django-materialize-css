@@ -16,22 +16,27 @@
 
   <img src="{{ post.creator.userprofile.avatar.url }}"
     width="50" height="50"
-  alt="{{post.creator.userprofile.name}} avatar"
-  class="circle responsive-img">
+    alt="{{post.creator.userprofile.name}} avatar"
+    class="circle responsive-img">
 
         <span>&nbsp;&nbsp;{{ post.creator.userprofile.name }}&nbsp;&nbsp;|
         <span>&nbsp;{{ post.added|timesince }} ago &nbsp;
          |&nbsp; {% get_hit_count for post %} views</span>
         <span>&nbsp;&nbsp;&nbsp;</span>
-{% if user.is_authenticated and post.creator == user %}
-    <a href="{% url 'posts:update' post.slug %}"
-    class="btn-floating btn-flat waves-effect waves-light btn teal">
-      <i class="material-icons">edit</i></a>
-    <a href="#post-delete-modal"
-      class="btn-floating btn-flat waves-effect waves-light btn red modal-trigger">
-      <i class="material-icons">delete</i></a>
-{% endif %}
+
 </div>
+{% if user.is_authenticated and post.creator == user %}
+
+<div id="post-actions">
+  <a href="{% url 'posts:update' post.slug %}"
+  class="btn waves-effect waves-light teal">
+    <i class="material-icons">edit</i></a>
+  <a href="#post-delete-modal"
+    class="btn waves-effect waves-light red modal-trigger">
+    <i class="material-icons tiny">delete</i></a>
+</div>
+{% endif %}
+
 <hr class="grey-text text-lighten-4">
 <p class="flow-text">{{ post.body }}</p>
 </div>

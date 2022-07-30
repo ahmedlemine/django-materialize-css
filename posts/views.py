@@ -131,6 +131,10 @@ def create_post_form(request):
             return render(request, 'posts/_post_list.html', context)
         else:
             form = PostForm(request.POST, request.FILES or None)
+            context = {
+                'form': form
+            }
+            return render(request, 'posts/create_post.html', context)
     
     form = PostForm()
     context = {
