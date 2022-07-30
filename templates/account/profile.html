@@ -8,7 +8,7 @@
 <div class="col s12 m8 offset-m2 l6 offset-l3">
   <h4 class="purple-text text-darken-3">My Profile</h4>
 
-  <div class="card-panel grey lighten-5 z-depth-1">
+  <div class="card-panel grey lighten-5 z-depth-1 hoverable">
     <div class="row valign-wrapper">
       <div class="col s2">
         <img src="{{ user.userprofile.avatar.url }}" alt="{{user.userprofile.name}} avatar" class="circle responsive-img"> <!-- notice the "circle" class -->
@@ -27,7 +27,7 @@
 </div>
 
 <div class="row">
-    <div id="profile-update"class="col s12 m8 offset-m2" style="display: none;">
+    <div id="profile-update" class="col s12 m8 offset-m2" style="display: none;">
         <h4 class="purple-text text-darken-3">Update Your Profile</h4>
         <form id="profile-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
