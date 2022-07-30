@@ -18,7 +18,8 @@ class Index(ListView):
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
         context.update({
-        'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:3],
+        'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
+        'recent_posts': Post.objects.order_by('-added')[:5]
         })
         return context  
 
@@ -31,6 +32,7 @@ class PostDetail(DetailView):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context.update({
         'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
+        'recent_posts': Post.objects.order_by('-added')[:5]
         })
         return context    
  
@@ -83,6 +85,7 @@ def update_post(request, slug):
             context = {
                 'post': p,
                 'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
+                'recent_posts': Post.objects.order_by('-added')[:5]
             }
             return render(request, 'posts/post_detail.html', context)
         else:

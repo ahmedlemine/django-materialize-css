@@ -49,9 +49,14 @@
 {% include 'posts/_post_list.html' %}
 
 </div>
-
-{% include 'posts/_popular_posts.html' %}
-
+<div class="row">
+  <div id="bottom" class="col s12 l6">
+    {% include 'posts/_popular_posts.html' %}
+  </div>
+  <div id="bottom" class="col s12 l6">
+    {% include 'posts/_recent_posts.html' %}
+  </div>
+</div>
 <!-- floating action buttons -->
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large purple darken-3">

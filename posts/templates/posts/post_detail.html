@@ -4,30 +4,43 @@
 {% load humanize %}
 
 {% block content %}
-<div class="section">
-<h2 class="purple-text text-darken-3">{{ post.title|title }}</h2>
-  <div class="">
+<div class="row">
+
+<div class="col s12 l8">
+<h4 class="purple-text text-darken-3">{{ post.title|title }}</h4>
+  <div class="section">
     <img class="materialboxed responsive-img" src="{{ post.image.url }}">
   </div>
 
 
 
-<div class="valign-wrapper grey-text section">
+<div class="valign-wrapper grey-text">
 
   <img src="{{ post.creator.userprofile.avatar.url }}"
     width="50" height="50"
     alt="{{post.creator.userprofile.name}} avatar"
     class="circle responsive-img">
-
-        <span>&nbsp;&nbsp;{{ post.creator.userprofile.name }}&nbsp;&nbsp;|
-        <span>&nbsp;{{ post.added|timesince }} ago &nbsp;
-         |&nbsp; {% get_hit_count for post %} views</span>
-        <span>&nbsp;&nbsp;&nbsp;</span>
-
+      <span>&nbsp;&nbsp;{{ post.creator.userprofile.name }}&nbsp;&nbsp;|
+      <span>&nbsp;{{ post.added|timesince }} ago &nbsp;
+        |&nbsp; {% get_hit_count for post %} views</span>
+      <span>&nbsp;&nbsp;&nbsp;</span>
 </div>
 
 <hr class="grey-text text-lighten-4">
 <p class="">{{ post.body }}</p>
+</div>
+
+
+    <div id="sidebar-right" class="col s12 l4">
+      {% if popular_posts %}
+        {% include 'posts/_popular_posts.html' %}
+      {% endif %}
+    </div>
+    <div id="sidebar-right" class="col s12 l4">
+      {% if recent_posts %}
+        {% include 'posts/_recent_posts.html' %}
+      {% endif %}
+    </div>
 </div>
 
 {% if user.is_authenticated and post.creator == user %}
@@ -46,12 +59,6 @@
 </div>
 <!--  End floating action buttons -->
 {% endif %}
-
-<section class="section">
-{% if popular_posts %}
-  {% include 'posts/_popular_posts.html' %}
-{% endif %}
-</section>
 
  <!-- delete post Modal -->
  <div id="post-delete-modal" class="modal">
