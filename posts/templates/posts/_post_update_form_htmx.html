@@ -1,7 +1,7 @@
 <!--  post form for Modal partial template -->
 <div>
     <h5 class="grey-text">Edit post</h5>
-    <form action="{% url 'posts:htmx-update' post.slug %}" method='POST' enctype="multipart/form-data" onsubmit="M.toast({html: 'Updated!'})">
+    <form action="{% url 'posts:htmx-update' post.slug %}" method='POST' enctype="multipart/form-data" htmx:onload="M.toast({html: 'Updated!'})">
       {% csrf_token %}
       {{ form.as_p }}
         <button class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Save

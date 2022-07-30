@@ -73,24 +73,25 @@ def update_post(request, slug):
     form = PostForm(instance=p)
 
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES or None)
-        
+        form = PostForm(request.POST, request.FILES or None, instance=p)
         if form.is_valid():
+            print(form.cleaned_data)
             p.title = form.cleaned_data['title']
             p.body = form.cleaned_data['body']
             p.image = form.cleaned_data['image']
             p.save()
-            messages.success(request, 'post updated successfully')
+            messages.success(request, 'Post updated successfully')
             context = {
                 'post': p,
                 'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
             }
             return render(request, 'posts/post_detail.html', context)
         else:
-            messages.success(request, 'Please correct errors in form an try agin')
+            messages.error(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)
     
     context = {
+        'post': p,
         'form': form
     }
     return render(request, 'posts/update_post.html', context)
