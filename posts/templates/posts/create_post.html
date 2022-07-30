@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="col s12">
         <H4 class="purple-text text-darken-3">Create a Posts</H4>
         <form action="." method='POST' enctype="multipart/form-data" class="col s12">
             {% csrf_token %}
@@ -12,7 +12,6 @@
             <button class="btn waves-effect waves-light purlple darken-3" type="submit" name="action">Create
                 <i class="material-icons right">send</i>
             </button>
-
         </form>
     </div>
 </div>

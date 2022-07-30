@@ -75,7 +75,6 @@ def update_post(request, slug):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES or None, instance=p)
         if form.is_valid():
-            print(form.cleaned_data)
             p.title = form.cleaned_data['title']
             p.body = form.cleaned_data['body']
             p.image = form.cleaned_data['image']
