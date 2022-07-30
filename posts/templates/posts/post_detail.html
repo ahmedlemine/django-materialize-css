@@ -20,14 +20,14 @@
     width="50" height="50"
     alt="{{post.creator.userprofile.name}} avatar"
     class="circle responsive-img">
-      <span>&nbsp;&nbsp;{{ post.creator.userprofile.name }}&nbsp;&nbsp;|
-      <span>&nbsp;{{ post.added|timesince }} ago &nbsp;
-        |&nbsp; {% get_hit_count for post %} views</span>
-      <span>&nbsp;&nbsp;&nbsp;</span>
+      <span>&nbsp;&nbsp;{{ post.creator.userprofile.name }}&nbsp;&#8226;
+      <span>&nbsp;{{ post.added|timesince }} ago &nbsp;&#8226;</span>
+      <span>&nbsp;{{ post.body|wordcount }} words&nbsp;&#8226;</span>
+      <span>&nbsp;{% get_hit_count for post %} views</span>
 </div>
 
 <hr class="grey-text text-lighten-4">
-<p class="">{{ post.body }}</p>
+<p class="">{{ post.body|linebreaks }}</p>
 </div>
 
 
@@ -50,7 +50,7 @@
     <i class="large material-icons">edit</i>
   </a>
   <ul>
-    <li><a class="btn-floating green"><i class="material-icons">sms</i></a></li>
+    <li><a class="btn-floating yellow darken-1"><i class="material-icons">sms</i></a></li>
     <li><a href="#post-delete-modal" class="btn-floating modal-trigger red"><i class="material-icons">delete</i></a></li>
     <li><a href="{% url 'posts:update' post.slug %}" class="btn-floating modal-trigger blue">
         <i class="material-icons">edit</i></a>

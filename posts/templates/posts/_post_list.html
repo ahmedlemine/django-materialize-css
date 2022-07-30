@@ -13,7 +13,7 @@
                   <span class="card-title"><b>{{ post.title|title }}</b></span>
                 </div>
                 <div class="card-content">
-                  <p>{{ post.body|truncatewords:10 }}</p>
+                  <p>{{ post.body|truncatewords:20 }}</p>
                 </div>
                 <div class="card-action">
                   <a href="{% url 'posts:detail' post.slug %}" class="teal-text">Read</a>

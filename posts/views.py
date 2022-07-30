@@ -87,7 +87,7 @@ def update_post(request, slug):
                 'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
                 'recent_posts': Post.objects.order_by('-added')[:5]
             }
-            return render(request, 'posts/post_detail.html', context)
+            return redirect('posts:detail', slug=p.slug)
         else:
             messages.error(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)
