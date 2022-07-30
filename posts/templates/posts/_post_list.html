@@ -5,59 +5,28 @@
   <div class="row">
       {% if post_list %}
         {% for post in post_list %}
-        <div class="col s12 m6 l4">
-        <!------------------- Post card -------------------->
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator responsive-img" src="{{ post.image.url }}">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">{{ post.title }}<i class="material-icons right">more_vert</i></span>
-            <p><a href="{% url 'posts:detail' post.slug %}">Read</a></p>
-          </div>
-          <div class="card-action">
-            <span>
-              <!--
-              {% if user.is_authenticated %}
-              <a href="#post-edit-modal" class="modal-trigger grey-text"
-                    hx-get="{% url 'posts:htmx-update' post.slug %}"
-                    hx-target="#post-update-form"
-                    hx-swap="outerHTML">
-                    <i class="material-icons">mode_edit</i>
-                </a>
-                <a class="grey-text"
-                    hx-delete="{% url 'posts:htmx-delete' post.slug %}"
-                    hx-target="#post-list"
-                    hx-swap="outerHtml"
-                    hx-confirm="Are you sure you wish to delete this post: {{post.title}}?"
-                    htmx:afterRequest="M.toast({html: 'I am a toast'})">
-                    <i class="material-icons">delete</i>
-                </a>
-                {% endif %}
-              -->
-                <a href="" class="grey-text">
-                    <i class="material-icons">favorite_border</i>
-                </a>
-                <a href="" class="grey-text">
-                  <i class="material-icons">sms</i>
-                </a>
-            </span>
-            <span class="flow-text grey-text vertical-align">
-              {% get_hit_count for post %} views
-            </span>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">{{ post.title|truncatechars:10 }}<i class="material-icons right">close</i></span>
-            <p class="">{{ post.body|truncatewords:70 }}...</p>
-          </div>
+      <!------------------- Post card -------------------->
+        <div class="col s12 m6">
+              <div class="card medium hoverable">
+                <div class="card-image">
+                  <img src="{{ post.image.url }}">
+                  <span class="card-title"><b>{{ post.title|title }}</b></span>
+                </div>
+                <div class="card-content">
+                  <p>{{ post.body|truncatewords:10 }}</p>
+                </div>
+                <div class="card-action">
+                  <a href="{% url 'posts:detail' post.slug %}" class="teal-text">Read</a>
+                  <span class="grey-text vertical-align right">
+                    {% get_hit_count for post %} views
+                  </span>
+                </div>
+              </div>
         </div>
-        <!------------------- End Post card -------------------->
-      </div>
-
+      <!------------------- End Post card -------------------->
     {% endfor %}
 </div>
 {% else %}
-
   <div style="margin-bottom: 50px; margin-top: 50px; padding: 40px 0px; border: 4px #9e9e9e solid; border-style: dashed;" 
         class="nopost-wrapper container center">
     <h5 style="padding: 10px; margin-top: 0px;" class="grey-text">No posts yet.</h5>
@@ -66,5 +35,5 @@
             <span class="bold">Add a post</span>
         </a>
 </div>
-  {% endif %}
+{% endif %}
 </div>

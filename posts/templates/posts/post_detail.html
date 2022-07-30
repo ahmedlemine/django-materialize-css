@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="section">
-<h1 class="flow-text purple-text text-darken-3">{{ post.title }}</h1>
+<h2 class="purple-text text-darken-3">{{ post.title|title }}</h2>
   <div class="">
     <img class="materialboxed responsive-img" src="{{ post.image.url }}">
   </div>
@@ -25,31 +25,40 @@
         <span>&nbsp;&nbsp;&nbsp;</span>
 
 </div>
-{% if user.is_authenticated and post.creator == user %}
-
-<div id="post-actions">
-  <a href="{% url 'posts:update' post.slug %}"
-  class="btn waves-effect waves-light teal">
-    <i class="material-icons">edit</i></a>
-  <a href="#post-delete-modal"
-    class="btn waves-effect waves-light red modal-trigger">
-    <i class="material-icons tiny">delete</i></a>
-</div>
-{% endif %}
 
 <hr class="grey-text text-lighten-4">
-<p class="flow-text">{{ post.body }}</p>
+<p class="">{{ post.body }}</p>
 </div>
+
+{% if user.is_authenticated and post.creator == user %}
+<!-- floating action buttons for post -->
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large purple darken-3">
+    <i class="large material-icons">edit</i>
+  </a>
+  <ul>
+    <li><a class="btn-floating green"><i class="material-icons">sms</i></a></li>
+    <li><a href="#post-delete-modal" class="btn-floating modal-trigger red"><i class="material-icons">delete</i></a></li>
+    <li><a href="{% url 'posts:update' post.slug %}" class="btn-floating modal-trigger blue">
+        <i class="material-icons">edit</i></a>
+      </li>
+  </ul>
+</div>
+<!--  End floating action buttons -->
+{% endif %}
+
+<section class="section">
 {% if popular_posts %}
   {% include 'posts/_popular_posts.html' %}
 {% endif %}
+</section>
 
  <!-- delete post Modal -->
  <div id="post-delete-modal" class="modal">
   <div class="modal-content">
     <H5 class="flow-text purple-text darken-3"">Delete Post</H5>
     <p class="">Are you sure you want to delete this post
-        <span class="teal-text"> {{ post.title }}</span></hp>
+        <span class="teal-text"> {{ post.title }}</span></p>
 
         <form action="{% url 'posts:delete' post.slug %}" method='POST' class="col s12">
             {% csrf_token %}
@@ -69,6 +78,7 @@
 
 {% block script %}
 <script>
+    // init materialize css boxed img
     document.addEventListener('DOMContentLoaded', function() {
       let mboxed = document.querySelectorAll('.materialboxed')
       let instances = M.Materialbox.init(mboxed, {})
