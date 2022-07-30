@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load humanize %}
 
 {% block content %}
@@ -10,10 +11,9 @@
         hx-get="/search"
         hx-trigger="keyup changed delay:100ms"
         hx-target="#search-results"
-        hx-swap="innerHTML"
+        hx-swap="outerHtml"
         placeholder="Search..."
       >
-    </div>
     <div id="search-results" class="scale-transition scale-in">
     </div>
   </div>
@@ -22,6 +22,11 @@
 <div class="row">
   <div class="col s12">
     <H3 class="purple-text text-darken-3">Latest Posts
+      <span>
+        <a href="{% url 'posts:create' %}" class="waves-effect waves-light btn-small indigo lighten-1">
+        Add a post</a>
+      </span>
+    {% comment %}      
       {% if user.is_authenticated %}
       <span>
         <button hx-get="{% url 'posts:htmx-create' %}"
@@ -31,6 +36,7 @@
         Add a post</button>
       </span>
       {% endif %}
+    {% endcomment %}
     </H3>
   </div>
 </div>
