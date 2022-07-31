@@ -33,6 +33,26 @@
     <div id="post-list-template">
         {% include 'posts/_post_list.html' %}
     </div>
+
+<!-- Pagination -->
+{% if is_paginated %}
+<div class="center">
+  <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="waves-effect"><a href="?page=1"><i class="material-icons">first_page</i></a></li>
+            <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+            <li><a href="?page={{ page_obj.number|add:'-1' }}">{{ page_obj.number|add:'-1' }}</a></li>
+        {% endif %}
+            <li class="active"><a href="#">{{ page_obj.number }}</a></li>
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.number|add:'+1' }}">{{ page_obj.number|add:'+1' }}</a></li>
+            <li class="waves-effect"><a href="?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+            <li class="waves-effect"><a href="?page={{ page_obj.paginator.num_pages }}"><i class="material-icons">last_page</i></a></li>
+        {% endif %}
+  </ul>
+</div>
+{% endif %}
+
     <div class="row">
         <div id="popular-posts" class="col s12 l6">
             {% include 'posts/_popular_posts.html' %}

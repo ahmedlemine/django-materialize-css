@@ -14,6 +14,7 @@ from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
 class Index(ListView):
+    paginate_by = 8
     model = Post
     template_name = 'posts/index.html'
     
