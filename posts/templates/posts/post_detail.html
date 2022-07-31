@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load materializecss %}
 {% load hitcount_tags %}
 {% load humanize %}
 
@@ -11,8 +12,6 @@
   <div class="section">
     <img class="materialboxed responsive-img" src="{{ post.image.url }}">
   </div>
-
-
 
 <div class="valign-wrapper grey-text">
 
@@ -29,18 +28,54 @@
 <hr class="grey-text text-lighten-4">
 <p class="">{{ post.body|linebreaks }}</p>
 </div>
+</div>
+<div class="row">
 
+  <div class="col s12 m8">
+    <hr class="grey-text text-lighten-3">
 
-    <div id="sidebar-right" class="col s12 l4">
-      {% if popular_posts %}
-        {% include 'posts/_popular_posts.html' %}
-      {% endif %}
-    </div>
-    <div id="sidebar-right" class="col s12 l4">
-      {% if recent_posts %}
-        {% include 'posts/_recent_posts.html' %}
-      {% endif %}
-    </div>
+    {% if user.is_authenticated %}
+    <!-- <div id="comment-form">
+      <h5 class="grey-text">Add a new comment</h5>
+        <form action="{% url 'posts:comment' post.slug %}" method='POST' class="">
+          {% csrf_token %}
+          {{ form|materializecss }}
+            <button class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Post
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div> -->
+    <button class="btn blue wave-effects" hx-get="{% url 'posts:comment' post.slug %}"
+            hx-target="#comment-form"
+            hx-swap="outerHTML"
+            >
+    Leave a comment
+    </button>
+    {% endif %}
+  <div id="comment-form">
+
+  </div>
+  <div id="">
+      <ul class="comment-list">
+      {% for comment in post.comments %}
+        <p>{{ comment.user }}</p>
+        <p>{{ comment.added|timesince }} ago</p>
+        <p>{{ comment.text }}</p>
+      {% endfor %}
+    </ul>
+  </div>
+  </div>
+</div>
+
+<div id="sidebar-right" class="col s12 l4">
+  {% if popular_posts %}
+    {% include 'posts/_popular_posts.html' %}
+  {% endif %}
+</div>
+<div id="sidebar-right" class="col s12 l4">
+  {% if recent_posts %}
+    {% include 'posts/_recent_posts.html' %}
+  {% endif %}
 </div>
 
 {% if user.is_authenticated and post.creator == user %}

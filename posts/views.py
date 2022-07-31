@@ -1,3 +1,5 @@
+from curses import pair_number
+from http.client import HTTPResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,8 +10,8 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from .mixins import UserIsOwnerMixin
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 
 class Index(ListView):
     model = Post
@@ -32,7 +34,8 @@ class PostDetail(DetailView):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context.update({
         'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
-        'recent_posts': Post.objects.order_by('-added')[:5]
+        'recent_posts': Post.objects.order_by('-added')[:5],
+        'form': CommentForm()
         })
         return context    
  
@@ -191,3 +194,37 @@ def search(request):
     #     post_list[post.title] = 'static/posts/images/user_avatar.jpg'
     # print(post_list)
     # return render(request, 'posts/_post_list.html', {'post_list': qs})
+
+@login_required
+def create_comment_form(request, slug):
+    p = Post.objects.get(slug=slug)
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST or None)
+        if form.is_valid():
+            c = form.save(commit=False)
+            c.post = p
+            c.user = request.user
+            c.save()
+            new_comment = Comment.objects.get(pk=c.pk)
+            form = CommentForm()
+            context = {
+                'comment': new_comment,
+                # 'toast': messages.success(request, 'comment posted successfully')
+            }
+            return render(request, 'posts/_comment.html', context)
+        else:
+            form = CommentForm(request.POST or None)
+            # messages.error(request, 'Error! please try again')
+            context = {
+                'post': p,
+                'form': form,
+                # 'toast': messages.error(request, 'Error! please try again')
+            }
+            return render(request, 'posts/_comment_form.html', context)
+    
+    context = {
+        'post': p,
+        'form': CommentForm()
+    }
+    return render(request, 'posts/_comment_form.html', context)

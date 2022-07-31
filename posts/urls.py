@@ -9,7 +9,8 @@ from .views import (
             delete_post_htmx,
             create_post_form,
             update_post_form,
-            search
+            search,
+            create_comment_form
             )
 
 app_name = 'posts'
@@ -18,6 +19,7 @@ urlpatterns = [
     path('', Index.as_view(), name='index'),
     path('<slug:slug>/detail/', PostDetail.as_view(), name='detail'),
     path('<slug:slug>/update/', update_post, name='update'),
+    path('<slug:slug>/comment/',create_comment_form, name='comment'),
     path('<slug:slug>/htmx_update/', update_post_form, name='htmx-update'),
     path('<slug:slug>/delete/', PostDelete.as_view(), name="delete"),
     path('create/', create_post, name="create"),
