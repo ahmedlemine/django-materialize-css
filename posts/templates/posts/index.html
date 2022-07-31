@@ -5,72 +5,56 @@
 {% block content %}
 
 <div class="row">
-  <div class="col s12">
-    <div class="input-field">
-      <input type="text" name="q"
-        hx-get="/search"
-        hx-trigger="keyup changed delay:100ms"
-        hx-target="#search-results"
-        hx-swap="outerHtml"
-        placeholder="Search..."
-      >
-    <div id="search-results" class="scale-transition scale-in">
+    <div class="col s12">
+        <div class="input-field">
+            <input type="text" name="q"
+                   hx-get="/search"
+                   hx-trigger="keyup changed delay:100ms"
+                   hx-target="#search-results"
+                   hx-swap="outerHtml"
+                   placeholder="Search..."
+            >
+            <div id="search-results" class="scale-transition scale-in">
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col s12">
-    <H3 class="purple-text text-darken-3">Latest Posts
-      <span>
-        <a href="{% url 'posts:create' %}" class="waves-effect waves-light btn-small teal">
-        Add a post</a>
-      </span>
-    {% comment %}      
-      {% if user.is_authenticated %}
-      <span>
-        <button hx-get="{% url 'posts:htmx-create' %}"
-        hx-target="#post-list-template"
-        hx-swap="outerHtml"
-        class="waves-effect waves-light btn-small indigo lighten-1">
-        Add a post</button>
-      </span>
-      {% endif %}
-    {% endcomment %}
-    </H3>
-  </div>
-</div>
+    <div class="row">
+        <div class="col s12">
+            <H3 class="purple-text text-darken-3">Latest Posts
+                <span><a href="{% url 'posts:create' %}" class="waves-effect waves-light btn-small teal">Add a post</a>
+      </span></H3>
+        </div>
+    </div>
 
-<!-- htmx target for create form -->
-<div id="post-add-form"></div>
+    <!-- htmx target for create form -->
+    <div id="post-add-form"></div>
 
-<div id="post-list-template">
+    <div id="post-list-template">
+        {% include 'posts/_post_list.html' %}
+    </div>
+    <div class="row">
+        <div id="popular-posts" class="col s12 l6">
+            {% include 'posts/_popular_posts.html' %}
+        </div>
+        <div id="recent-post" class="col s12 l6">
+            {% include 'posts/_recent_posts.html' %}
+        </div>
+    </div>
+    <!-- floating action buttons -->
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large purple darken-3">
+            <i class="large material-icons">add</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+            <li><a href="{% url 'posts:create' %}" class="btn-floating modal-trigger red">
+                <i class="material-icons">add</i></a>
+            </li>
+        </ul>
+    </div>
+    <!--  End floating action buttons -->
 
-{% include 'posts/_post_list.html' %}
-
-</div>
-<div class="row">
-  <div id="bottom" class="col s12 l6">
-    {% include 'posts/_popular_posts.html' %}
-  </div>
-  <div id="bottom" class="col s12 l6">
-    {% include 'posts/_recent_posts.html' %}
-  </div>
-</div>
-<!-- floating action buttons -->
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large purple darken-3">
-      <i class="large material-icons">add</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-      <li><a href="{% url 'posts:create' %}" class="btn-floating modal-trigger red">
-          <i class="material-icons">add</i></a>
-        </li>
-    </ul>
-</div>
-<!--  End floating action buttons -->
-
-{% endblock content %}
+    {% endblock content %}

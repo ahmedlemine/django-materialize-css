@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <H3 class="purple-text darken-3"">Delete Post</H3>
-    <h5 class="">Are you sure you want to delete this post
-        <span class="teal-text"> {{ post.title }}</span></h5>
+<H3 class="purple-text darken-3"">Delete Post</H3>
+<h5 class="">Are you sure you want to delete this post
+    <span class="teal-text"> {{ post.title }}</span></h5>
 
-        <form action="." method='POST' class="col s12">
-            {% csrf_token %}
-            <button class="btn waves-effect waves-light red left" type="submit" name="action">Yes, Delete
-                    <i class="material-icons left">delete</i>
-            </button>
-            <a href="{% url 'posts:detail' post.slug %}" class="btn waves-effect waves-light right">
-                No, Go back</a>
-        </form>
+<form action="." method='POST' class="col s12">
+    {% csrf_token %}
+    <button class="btn waves-effect waves-light red left" type="submit" name="action">Yes, Delete
+        <i class="material-icons left">delete</i>
+    </button>
+    <a href="{% url 'posts:detail' post.slug %}" class="btn waves-effect waves-light right">
+        No, Go back</a>
+</form>
 
 {% endblock content %}

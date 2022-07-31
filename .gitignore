@@ -328,3 +328,4 @@ tags
 *.sqlite
 *.sqlite3
 
+.idea/

@@ -1,13 +1,13 @@
 {% load materializecss %}
 <!--  post form for Modal partial template -->
-      <div>
-        <h5 class="grey-text">Add a new post</h5>
-        <form action="{% url 'posts:comment' %}" method='POST' enctype="multipart/form-data" class="">
-          {% csrf_token %}
-          {{ form|materializecss }}
-            <button class="btn waves-effect waves-light teal" type="submit" name="action">Add
-                <i class="material-icons right">send</i>
-            </button>
-        </form>
-      </div>
+<div>
+    <h5 class="grey-text">Add a new post</h5>
+    <form action="{% url 'posts:comment' %}" method='POST' enctype="multipart/form-data" class="">
+        {% csrf_token %}
+        {{ form|materializecss }}
+        <button class="btn waves-effect waves-light teal" type="submit" name="action">Add
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
 <!-- end post form for modal -->
