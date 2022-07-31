@@ -1,4 +1,16 @@
-<img class="circle" width="25" height="25" src="{{ comment.user.userprofile.avatar.url }}">
-<p>{{ comment.user }}</p>
-<p>{{ comment.added|timesince }} ago</p>
-<p>{{ comment.comment }}</p>
+<div class="col s12">
+<div class="card-panel green lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+        <div class="col s2">
+            <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+        </div>
+        <div class="col s10">
+            <span class="black-text"><b>{{ comment.user }}</b></span>
+            <span class="grey-text">&nbsp;&#8226;&nbsp;{{ comment.added|timesince }} ago</span>
+            <p class="">
+                {{ comment.comment }}
+            </p>
+        </div>
+    </div>
+</div>
+</div>

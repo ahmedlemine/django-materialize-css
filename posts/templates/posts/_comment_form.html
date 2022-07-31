@@ -4,8 +4,8 @@
           {% csrf_token %}
           {{ form|materializecss }}
             <button hx-target="#comment-list"
-            hx-swap="afterbegin"
-            class="btn btn-small waves-effect waves-light purple darken-3" type="submit" name="action">Post
+            hx-swap="beforeend"
+            class="btn waves-effect waves-light blue" type="submit" name="action">Post
                 <i class="material-icons right">send</i>
             </button>
         </form>
