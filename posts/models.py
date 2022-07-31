@@ -6,7 +6,14 @@ from django.db import models
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 
+
+
 class CustomPostManger(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by('-added')
+
+
+class CustomCommentManger(models.Manager):
     def get_queryset(self):
         return super().get_queryset().order_by('-added')
 
@@ -49,6 +56,8 @@ class Comment(models.Model):
     comment = models.TextField()
     added = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=True)
+
+    objects = CustomCommentManger()
 
     def __str__(self):
         return f"{self.user} on {self.post}"

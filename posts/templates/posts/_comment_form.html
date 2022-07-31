@@ -1,13 +1,12 @@
 {% load materializecss %}
-      <div id="comment-form">
-        <form hx-post="{% url 'posts:comment' post.slug %}" method='POST' class="">
+      <div id="comment-form" hx-swap="innerHTML">
+        <form hx-post="{% url 'posts:comment' post.slug %}" method='POST'>
           {% csrf_token %}
           {{ form|materializecss }}
-            <button hx-target="#comment-list"
-            hx-swap="beforeend"
+            <button "
             class="btn waves-effect waves-light blue" type="submit" name="action">Post
                 <i class="material-icons right">send</i>
-            </button>
+        </button>
         </form>
       </div>
 

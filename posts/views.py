@@ -210,7 +210,7 @@ def create_comment_form(request, slug):
             form = CommentForm()
             context = {
                 'comment': new_comment,
-                # 'toast': messages.success(request, 'comment posted successfully')
+                # 'comments': Comment.objects.filter(post=p).order_by('-added')
             }
             return render(request, 'posts/_comment.html', context)
         else:
