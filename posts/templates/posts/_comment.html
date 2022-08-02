@@ -1,4 +1,40 @@
-<div id="comment{{comment.pk}}" class="card-panel green lighten-5 z-depth-1" 
+<!-- <ul id="new-comment" class="collection"> -->
+<li id="comment-{{comment.pk}}" class="collection-item avatar grey lighten-4"
+            hx-target="this"
+            hx-swap="outerHTML">
+    <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="circle">
+    <span class="green-text text-darken-5"><b>New comment Posted!</b></span><br>
+    <span class="title"><b>{{comment.user.userprofile.name}}</b></span>
+    <p><span class="grey-text">{{comment.added|timesince}} ago</span>
+      <br>
+       {{comment.comment|linebreaks}}
+    </p>
+    
+    {% if user.is_authenticated and user == comment.user %}
+    <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post" class="secondary-content">
+        {% csrf_token %}
+        <div id="indicator" class="htmx-indicator preloader-wrapper small active">
+            <div class="spinner-layer spinner-green-only">
+                <div class="circle-clipper left">
+                <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-flat waves-effect waves-red transparent red-text">
+            <i class="material-icons tiny red-text">delete</i>
+        </button>
+    </form>
+  {% endif %}
+
+    <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
+  </li>
+<!-- </ul> -->
+{% comment %}
+<!-- <div id="comment{{comment.pk}}" class="card-panel green lighten-5 z-depth-1" 
             hx-target="this"
             hx-swap="outerHTML">
     <div class="row">
@@ -8,27 +44,28 @@
         <div class="col s10">
             <span class="black-text"><b>{{ comment.user }}</b></span>
             <span class="grey-text">&nbsp;&#8226;&nbsp;{{ comment.added|timesince }} ago</span>
+            <span id="del-comment">
+                <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post" class="secondary-content">
+                    {% csrf_token %}
+                    <div id="indicator" class="htmx-indicator preloader-wrapper small active">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                            <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-small btn-flat waves-effect waves-white red-text">delete
+                    </button>
+                </form>
+            </span>
             <p class="">
                 {{ comment.comment }}
             </p>
-            <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-small btn-flat right yellow darken-1 black-text">delete
-                </button>
-            <div id="indicator" class="htmx-indicator preloader-wrapper small active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                    <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                    </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-                </div>
-            </form>
-
         </div>
     </div>
-</div>
+</div> -->
+{% endcomment %}

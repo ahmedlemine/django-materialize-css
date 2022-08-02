@@ -1,10 +1,12 @@
 {% load materializecss %}
-      <div id="comment-form" hx-swap="innerHTML">
+<li hx-target="this" class="collection-item avatar">
+  <img src="{{ user.userprofile.avatar.url }}" alt="" class="circle">
+      <div  hx-swap="outerHTML">
         <form hx-post="{% url 'posts:comment' post.slug %}" method='POST'>
           {% csrf_token %}
           {{ form|materializecss }}
             <button
-            class="btn waves-effect waves-light blue" type="submit" name="action">Post
+            class="btn waves-effect waves-light blue right" type="submit" name="action">Post
                 <i class="material-icons right">send</i>
         </button>
         <div class="progress htmx-indicator">
@@ -12,5 +14,5 @@
         </div>
         </form>
       </div>
-
+</li>
 <!-- end comment form -->

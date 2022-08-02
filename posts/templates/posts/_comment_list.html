@@ -1,4 +1,55 @@
+          <ul id="comments-ul" class="collection">
+          <li id="comment-form-li" class="collection-item">
+            {% if user.is_authenticated %}
+            <span>
+                <button class="btn blue wave-effects" hx-get="{% url 'posts:comment' post.slug %}"
+                hx-target="#comment-form-li"        
+                hx-swap="outerHTML">Leave a comment</button>
+            </span>
+            {% else %}
+            <p class="backquoute">Please login to leave a comment.</p>
+            {% endif %}
+          </li>
           {% for comment in post.comments %}
+            <li id="comment-{{comment.pk}}" class="collection-item avatar">
+              <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="circle">
+              <span class="title"><b>{{comment.user.userprofile.name}}</b></span>
+              <p><span class="grey-text">{{comment.added}}</span>
+                <br>
+                 {{comment.comment|linebreaks}}
+              </p>
+              
+              {% if user.is_authenticated and user == comment.user %}
+              <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post"
+                class="secondary-content"
+                hx-target="#comment-{{comment.pk}}"
+                hx-swap="outerHTML"> 
+                {% csrf_token %}
+                <div id="indicator" class="htmx-indicator preloader-wrapper small active">
+                  <div class="spinner-layer spinner-green-only">
+                      <div class="circle-clipper left">
+                      <div class="circle"></div>
+                      </div><div class="gap-patch">
+                      <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                      </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-flat waves-effect waves-red transparent red-text">
+                  <i class="material-icons tiny red-text">delete</i>
+                </button>
+                
+              </form>
+            {% endif %}
+
+              <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
+            </li>
+          {% endfor %}
+          </ul>
+
+{% comment %}
+<!-- {% for comment in post.comments %}
             <div id="comment-{{comment.pk}}" class="card-panel grey lighten-4 z-depth-0">
               <div class="row">
                 <div class="col s2">
@@ -7,19 +58,37 @@
                 <div class="col s10">
                     <span class="black-text"><b>{{ comment.user }}</b></span>
                     <span class="grey-text">&nbsp;&#8226;&nbsp;{{ comment.added}}</span>
+                    <span>
+                      {% if user.is_authenticated and user == comment.user %}
+                      <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post"
+                        class="secondary-content"
+                        hx-target="#comment-{{comment.pk}}"
+                        hx-swap="outerHTML"> 
+                        {% csrf_token %}
+                        <div id="indicator" class="htmx-indicator preloader-wrapper small active">
+                          <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                              <div class="circle"></div>
+                              </div><div class="gap-patch">
+                              <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                              <div class="circle"></div>
+                              </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-small btn-flat waves-effect waves-white red-text">delete
+                        </button>
+                        
+                      </form>
+                    {% endif %}
+                    </span>
                   <p class="">
                     {{ comment.comment }}
                   </p>
                 </div>
-                {% if user.is_authenticated and user == comment.user %}
-                  <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post"
-                    hx-target="#comment-{{comment.pk}}"
-                    hx-swap="outerHTML"> 
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-small btn-flat right yellow darken-1 black-text">delete
-                    </button>
-                  </form>
-                {% endif %}
+
               </div>
             </div>
-          {% endfor %}
+          {% endfor %} -->
+{% endcomment %}
+

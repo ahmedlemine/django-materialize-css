@@ -229,17 +229,19 @@ def create_comment_form(request, slug):
     return render(request, 'posts/_comment_form.html', context)
 
 
-# class CommentDelete(UserIsOwnerMixin, LoginRequiredMixin, DeleteView):
-#     model = Comment
-#     template_name = 'posts/delete_post.html'
-#     success_url = reverse_lazy('posts:index')
-
 @login_required
 def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'POST':
         if request.user == comment.user:
-            time.sleep(1)
+            time.sleep(0.5)
             comment.delete()
             return render(request, 'posts/htmx/_htmx_comment_deleted.html')
     return redirect('posts:detail', slug=comment.post.slug)
+
+
+def htmx_post_list(request):
+    context = {
+        'post_list': Post.objects.all()
+    }
+    return render(request, 'posts/_post_list.html', context)

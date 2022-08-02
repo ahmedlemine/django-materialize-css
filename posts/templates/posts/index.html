@@ -29,9 +29,11 @@
 
     <!-- htmx target for create form -->
     <div id="post-add-form"></div>
-
-    <div id="post-list-template">
-        {% include 'posts/_post_list.html' %}
+    <!-- Hyperscript load post list form /htmx_post_list -->
+    <div id="post-list-template" _="on load fetch {% url 'posts:htmx-post-list' %} then put the result into me">
+        <div class="htmx-indicator progress">
+            <div class="indeterminate"></div>
+        </div>
     </div>
 
 <!-- Pagination -->

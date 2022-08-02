@@ -32,20 +32,21 @@
 
         <div id="comments-section" class="section">
             <h3 class="purple-text text-darken-3">Comments</h3>
-
-            <div id="comment-form">
+            {% comment %}
+            <!-- <div id="comment-form" >
                 {% if user.is_authenticated %}
-                <span><button class="btn blue wave-effects" hx-get="{% url 'posts:comment' post.slug %}"
-                            hx-target="#comment-form"
-                            hx-swap="outerHTML">Leave a comment</button>
-                            <div class="progress htmx-indicator">
-                                <div class="indeterminate"></div>
-                            </div>
+                <span>
+                    <button class="btn blue wave-effects" hx-get="{% url 'posts:comment' post.slug %}"
+                            hx-target="#comments-ul"
+                            hx-swap="afterbegin"
+                            _="on htmx:load"
+                            >Leave a comment</button>
                 </span>
                 {% else %}
                 <p class="backquoute">Please login to leave a comment.</p>
                 {% endif %}
-            </div>
+            </div> -->
+            {% endcomment %}
             <div id="comment-list" class="section">
                 {% include 'posts/_comment_list.html' %}
             </div>
