@@ -1,3 +1,5 @@
+import time
+
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
@@ -210,19 +212,16 @@ def create_comment_form(request, slug):
             form = CommentForm()
             context = {
                 'comment': new_comment,
-                # 'comments': Comment.objects.filter(post=p).order_by('-added')
             }
+            time.sleep(0.5)
             return render(request, 'posts/_comment.html', context)
         else:
             form = CommentForm(request.POST or None)
-            # messages.error(request, 'Error! please try again')
             context = {
                 'post': p,
                 'form': form,
-                # 'toast': messages.error(request, 'Error! please try again')
             }
             return render(request, 'posts/_comment_form.html', context)
-    
     context = {
         'post': p,
         'form': CommentForm()
@@ -240,6 +239,7 @@ def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'POST':
         if request.user == comment.user:
+            time.sleep(1)
             comment.delete()
             return render(request, 'posts/htmx/_htmx_comment_deleted.html')
     return redirect('posts:detail', slug=comment.post.slug)

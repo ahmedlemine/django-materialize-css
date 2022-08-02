@@ -38,6 +38,9 @@
                 <span><button class="btn blue wave-effects" hx-get="{% url 'posts:comment' post.slug %}"
                             hx-target="#comment-form"
                             hx-swap="outerHTML">Leave a comment</button>
+                            <div class="progress htmx-indicator">
+                                <div class="indeterminate"></div>
+                            </div>
                 </span>
                 {% else %}
                 <p class="backquoute">Please login to leave a comment.</p>
@@ -48,6 +51,7 @@
             </div>
         </div>
     </div>
+   
     <div class="col s12 l4">
             {% if popular_posts %}
                 {% include 'posts/_popular_posts.html' %}
