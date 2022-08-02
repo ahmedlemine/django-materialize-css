@@ -14,7 +14,7 @@
             <li id="comment-{{comment.pk}}" class="collection-item avatar">
               <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="circle">
               <span class="title"><b>{{comment.user.userprofile.name}}</b></span>
-              <p><span class="grey-text">{{comment.added}}</span>
+              <p style="margin-top: 2px;"><span class="grey-text">{{comment.added}}</span>
                 <br>
                  {{comment.comment|linebreaks}}
               </p>

@@ -27,12 +27,15 @@
         </div>
     </div>
 
-    <!-- htmx target for create form -->
     <div id="post-add-form"></div>
-    <!-- Hyperscript load post list form /htmx_post_list -->
-    <div id="post-list-template" _="on load fetch {% url 'posts:htmx-post-list' %} then put the result into me">
+
+    <div hx-get="/htmx_post_list"
+        hx-trigger="load delay:0.5s"
+        hx-swap="outerHTML"
+        >
         <div class="htmx-indicator progress">
             <div class="indeterminate"></div>
+        </div>
         </div>
     </div>
 

@@ -3,7 +3,7 @@
 {% load materializecss %}
 {% block content %}
 <H3 class="purple-text darken-3">Update Post</H3>
-<form action="{% url 'posts:update' post.slug %}" method='POST' enctype="multipart/form-data" class="col s12">
+<form action="{% url 'posts:update' post.slug %}" method='POST' enctype="multipart/form-data" class="col s12 section">
     {% csrf_token %}
     {{ form|materializecss }}
     <button class="btn waves-effect waves-light purple darken-3" type="submit" name="action">Save
