@@ -1,6 +1,5 @@
-from curses import pair_number
 from http.client import HTTPResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -229,3 +228,18 @@ def create_comment_form(request, slug):
         'form': CommentForm()
     }
     return render(request, 'posts/_comment_form.html', context)
+
+
+# class CommentDelete(UserIsOwnerMixin, LoginRequiredMixin, DeleteView):
+#     model = Comment
+#     template_name = 'posts/delete_post.html'
+#     success_url = reverse_lazy('posts:index')
+
+@login_required
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == 'POST':
+        if request.user == comment.user:
+            comment.delete()
+            return render(request, 'posts/htmx/_htmx_comment_deleted.html')
+    return redirect('posts:detail', slug=comment.post.slug)

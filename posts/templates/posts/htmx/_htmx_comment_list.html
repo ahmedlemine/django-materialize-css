@@ -1,6 +1,6 @@
-{% for comment in post.comments %}
+{% for comment in comments %}
           <!-- <div class="col s12"> -->
-            <div id="comment-{{comment.pk}}" class="card-panel grey lighten-4 z-depth-0">
+            <div class="card-panel grey lighten-4 z-depth-0">
               <div class="row">
                 <div class="col s2">
                   <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="avatar circle responsive-img">
@@ -13,16 +13,14 @@
                   </p>
                 </div>
                 {% if user.is_authenticated and user == comment.user %}
-                  <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post"
-                    hx-target="#comment-{{comment.pk}}"
-                    hx-swap="outerHTML"> 
+                  <form action="{% url 'posts:delete-comment' comment.pk %}" method="post"> 
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-small btn-flat right yellow darken-1 black-text">delete
+                    <button type="submit" class="">
+                        <i class="material-icons left">delete</i>
                     </button>
                   </form>
                 {% endif %}
               </div>
             </div>
-            
           <!-- </div> -->
 {% endfor %}

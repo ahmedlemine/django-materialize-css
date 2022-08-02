@@ -1,8 +1,10 @@
 <!-- <div class="col s12"> -->
-<div class="card-panel green lighten-5 z-depth-1">
+<div id="comment{{comment.pk}}" class="card-panel green lighten-5 z-depth-1" 
+            hx-target="this"
+            hx-swap="outerHTML">
     <div class="row valign-wrapper">
         <div class="col s2">
-            <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            <img src="{{ comment.user.userprofile.avatar.url }}" alt="" class="circle responsive-img">
         </div>
         <div class="col s10">
             <span class="black-text"><b>{{ comment.user }}</b></span>
@@ -10,6 +12,12 @@
             <p class="">
                 {{ comment.comment }}
             </p>
+            <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-small btn-flat right yellow darken-1 black-text">delete
+                </button>
+            </form>
+
         </div>
     </div>
 </div>

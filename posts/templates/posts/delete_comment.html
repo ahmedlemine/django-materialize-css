@@ -1,0 +1,7 @@
+<form action="{% url 'posts:delete-comment' comment.pk %}" method='POST' class="col s12">
+    {% csrf_token %}
+    <button class="btn waves-effect waves-light red center"
+            type="submit" name="action">Yes, Delete
+        <i class="material-icons left">delete</i>
+    </button>
+</form>

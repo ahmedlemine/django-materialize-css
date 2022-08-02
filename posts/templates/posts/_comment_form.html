@@ -3,10 +3,15 @@
         <form hx-post="{% url 'posts:comment' post.slug %}" method='POST'>
           {% csrf_token %}
           {{ form|materializecss }}
-            <button "
+            <button
             class="btn waves-effect waves-light blue" type="submit" name="action">Post
                 <i class="material-icons right">send</i>
         </button>
+        <div id="indicator" class="htmx-indicator">
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
         </form>
       </div>
 
