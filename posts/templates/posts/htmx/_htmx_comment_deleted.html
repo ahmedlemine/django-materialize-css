@@ -6,6 +6,17 @@
         </div>
     </div> -->
 
-    <li class="collection-item teal lighten-5">
-        <P class="green-text text-darken-3"><b>Deleted comment.</b></P>
+    <li id="confirm{{pk}}" class="collection-item teal lighten-5 comment-deleted">
+        <P class="green-text text-darken-3"><b>Deleted comment</b>
+        <a onclick="closeMsg()" class="btn btn-flat btn-small right">close</a>
+        </P>
     </li>
+
+    {% block script %}
+        <script>
+            function closeMsg() {
+                let confirmMsg = document.querySelector('.comment-deleted')
+                confirmMsg.outerHTML = ''
+            }
+        </script>
+    {% endblock script%}

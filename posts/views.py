@@ -1,6 +1,6 @@
 import time
 
-from http.client import HTTPResponse
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -181,7 +181,7 @@ def update_post_form(request, slug):
 def search(request):
     qs = Post.objects.all()
     q = request.GET.get('q')
-    if q:
+    if q and q != '':
         qs = qs.filter(
                 Q(title__icontains=q) |
                 Q(body__icontains=q)
@@ -190,12 +190,9 @@ def search(request):
             'post_list': qs
         }
         return render(request, 'posts/_posts_li.html', context)
-        # return render(request, 'posts/_post_list.html', context)
-    # post_list = {}
-    # for post in qs:
-    #     post_list[post.title] = 'static/posts/images/user_avatar.jpg'
-    # print(post_list)
-    # return render(request, 'posts/_post_list.html', {'post_list': qs})
+
+    return HttpResponse('please type a search keyword')
+
 
 @login_required
 def create_comment_form(request, slug):
@@ -232,12 +229,17 @@ def create_comment_form(request, slug):
 @login_required
 def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
+    context = {
+        'pk': comment.pk
+    }
     if request.method == 'POST':
         if request.user == comment.user:
-            time.sleep(0.5)
+            time.sleep(0.3)
             comment.delete()
-            return render(request, 'posts/htmx/_htmx_comment_deleted.html')
-    return redirect('posts:detail', slug=comment.post.slug)
+            return render(request, 'posts/htmx/_htmx_comment_deleted.html', context)
+        return HttpResponseForbidden('Not Allowed')
+    # returns bad request if method is GET
+    return HttpResponseNotAllowed( ['POST'], 'Not Allowed')
 
 
 def htmx_post_list(request):

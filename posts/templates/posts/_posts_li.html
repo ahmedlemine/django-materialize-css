@@ -1,9 +1,11 @@
 {% if post_list %}
-<div class="collection">
+<ul class="collection col s12 m6">
     {% for post in post_list %}
-        <a class="collection-item" href="{% url 'posts:detail' post.slug %}"><b>{{post.title}}</b></a>
-    {% endfor %}
-</div>
+        <li>
+            <a class="collection-item" href="{% url 'posts:detail' post.slug %}"><b>{{post.title}}</b></a>
+        </li>
+        {% endfor %}
+</ul>
 {% else %}
 <ul>
     <li><b>No results found</b></li>
