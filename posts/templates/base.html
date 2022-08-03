@@ -44,6 +44,7 @@
             <!-- end nav dropdown -->
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo flow-text hide-on-small-only">Django Starter</a>
+                <a href="/" class="brand-logo hide-on-med-and-up"><i class="material-icons">home</i></a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
                 <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
@@ -70,11 +71,27 @@
                         <a href="{% url 'account_signup' %}">Signup</a>
                     </li>
                     {% endif %}
+                   
                 </ul>
             </div>
+
+            
         </div>
     </nav>
+    
 </div>
+<!-- Nav search bar -->
+<nav class="deep-purple lighten-4">
+    <div class="nav-wrapper">
+      <form action="/search">
+        <div class="input-field">
+          <input id="search" type="search" name="q" required">
+          <label class="label-icon" for="search"><i class="material-icons deep-purple-text">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+</nav>
 <!-- sidenav slideout -->
 <ul id="slide-out" class="sidenav">
     {% if user.is_authenticated %}
@@ -200,11 +217,9 @@
         // End of Materialize side nav
 
         
-              // init materialized css auto complete with ajax
+        // init materialized css auto complete with ajax
         // document.addEventListener('DOMContentLoaded', function() {
-        //       $.get("/search/", function(data){
-        //         console.log(data)
-        //         // now init autocomplete
+        //       $.get("/ajax_post_list/", function(data){
         //         let ac = document.querySelectorAll('.autocomplete');
         //         let instances = M.Autocomplete.init(ac, {
         //         data: JSON.parse(JSON.stringify(data))

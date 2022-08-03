@@ -13,49 +13,38 @@ img {
 
 </style>
 <div class="row">
+    {% comment %}
+    <!-- Search autocomplete -->
     <div class="col s12">
-        <div class="input-field">
-            <input type="text" name="q"
-                   hx-get="/search"
-                   hx-trigger="keyup changed delay:100ms"
-                   hx-target="#search-results"
-                   hx-swap="outerHtml"
-                   placeholder="Search..."
-            >
-            <div id="search-results" class="scale-transition scale-in">
-            </div>
+        <div class="row">
+            <form action="{% url 'posts:search' %}">
+                <div class="input-field col s12">
+                    <i class="material-icons teal-text prefix">search</i>
+                    <input type="text" name="q" id="autocomplete-input" class="autocomplete">
+                    <label for="autocomplete-input">Search</label>
+                </div>
+            </form>
         </div>
     </div>
-
+    {% endcomment %}
     <div class="row">
         <div class="col s12">
-            <H3 class="purple-text text-darken-3">Latest Posts
+            <h3 class="purple-text text-darken-3">Latest Posts
                 <span><a href="{% url 'posts:create' %}" class="waves-effect waves-light btn-small teal">Add a post</a>
-      </span></H3>
+      </span></h3>
         </div>
     </div>
 
     <div id="post-add-form"></div>
-
+    
     <div hx-get="/htmx_post_list"
         hx-trigger="load delay:0.3s"
         hx-swap="outerHTML"
         >
-        <div class="preloader-wrapper big active htmx-indicator center">
-            <div class="spinner-layer spinner-green-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
-          </div>
-        <!-- <div class="htmx-indicator progress">
+        <div class="htmx-indicator progress">
             <div class="indeterminate"></div>
         </div>
-        </div> -->
+        </div>
     </div>
 
 <!-- Pagination -->

@@ -13,7 +13,8 @@ from .views import (
             search,
             create_comment_form,
             delete_comment,
-            htmx_post_list
+            htmx_post_list,
+            ajax_post_list
             )
 
 app_name = 'posts'
@@ -30,5 +31,6 @@ urlpatterns = [
     path('search/', search, name="search"),
     path('htmx_delete/<slug:slug>/', delete_post_htmx, name='htmx-delete'),
     path('htmx_create/', create_post_form, name='htmx-create'),
-    path('htmx_post_list/', htmx_post_list, name='htmx-post-list')
+    path('htmx_post_list/', htmx_post_list, name='htmx-post-list'),
+    path('ajax_post_list/', ajax_post_list, name='ajax-post-list')
     ]

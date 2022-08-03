@@ -1,12 +1,13 @@
 import time
 
-from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
+from django.conf import settings
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
@@ -178,21 +179,6 @@ def update_post_form(request, slug):
     }
     return render(request, 'posts/_post_update_form_htmx.html', context)
 
-def search(request):
-    qs = Post.objects.all()
-    q = request.GET.get('q')
-    if q and q != '':
-        qs = qs.filter(
-                Q(title__icontains=q) |
-                Q(body__icontains=q)
-                ).distinct()
-        context = {
-            'post_list': qs
-        }
-        return render(request, 'posts/_posts_li.html', context)
-
-    return HttpResponse('please type a search keyword')
-
 
 @login_required
 def create_comment_form(request, slug):
@@ -247,3 +233,33 @@ def htmx_post_list(request):
         'post_list': Post.objects.all()
     }
     return render(request, 'posts/_post_list.html', context)
+
+
+def ajax_post_list(request):
+    post_list = list(Post.objects.values())
+    data = {}
+    for i in post_list:
+        data[i['title']]= settings.MEDIA_URL + i['image']
+    return JsonResponse(data, safe=False)
+    # return JsonResponse(post_list, safe=False)
+
+
+def search(request):
+    qs = Post.objects.all()
+    q = request.GET.get('q')
+    if q and q != '':
+        qs = qs.filter(
+                Q(title__icontains=q) |
+                Q(body__icontains=q)
+                ).distinct()
+        context = {
+            'post_list': qs
+        }
+        return render(request, 'posts/search_results.html', context)
+        
+    context = {
+        'post_list': ''
+    }
+    return render(request, 'posts/search_results.html', context)
+
+    # return HttpResponse('please type a search keyword')

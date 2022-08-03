@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="" class="section">
+    <h5 class="purple-text text-darken-3">Search Results</h5>
+    {% if post_list %}
+        {% include 'posts/_post_list.html' %}
+    {% else %}
+        <p class="flow-text">Your search did not return any results. Please try again with another keyword</p>
+    {% endif %}
+</div>
+{% endblock content %}
