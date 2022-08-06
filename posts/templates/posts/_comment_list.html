@@ -8,7 +8,7 @@
                 hx-swap="outerHTML">Leave a comment</button>
             </span>
             {% else %}
-            <p class="">Please login to leave a comment.</p>
+            <p class="">Please <a href="{% url 'account_login' %}?next={% url 'posts:detail' post.slug %}">login</a> to leave a comment.</p>
             {% endif %}
           </li>
           {% for comment in post.comments %}
@@ -37,8 +37,8 @@
                       </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-flat waves-effect waves-red transparent red-text">
-                  <i class="material-icons tiny red-text">delete</i>
+                <button type="submit" class="btn btn-flat waves-effect waves-red transparent grey-text">
+                  <i class="material-icons tiny grey-text">delete</i>
                 </button>
                 
               </form>

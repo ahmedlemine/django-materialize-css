@@ -13,7 +13,7 @@ def update_profile(request):
         form = UserProfileForm(request.POST, request.FILES or None, instance=user.userprofile)
         if form.is_valid():
             form.save()
-            messages.success(request, 'New post deleted successfully')
+            messages.success(request, 'Profile updated successfully')
 
             return redirect("accounts:profile")
         else:
