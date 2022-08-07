@@ -237,11 +237,13 @@ def htmx_post_list(request):
 
 def ajax_post_list(request):
     post_list = list(Post.objects.values())
-    data = {}
-    for i in post_list:
-        data[i['title']]= settings.MEDIA_URL + i['image']
-    return JsonResponse(data, safe=False)
-    # return JsonResponse(post_list, safe=False)
+    return JsonResponse(post_list, safe=False)
+
+    # old for materialize css autocomplete field
+    # data = {}
+    # for i in post_list: 
+    #     data[i['title']]= settings.MEDIA_URL + i['image']
+    # return JsonResponse(data, safe=False)
 
 
 def search(request):

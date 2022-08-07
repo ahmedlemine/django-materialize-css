@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'materializecssform',
     'hitcount',
+    'corsheaders',
 
     # local
     'accounts',
@@ -53,6 +54,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #django corse headers
+    "corsheaders.middleware.CorsMiddleware",
+    #
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -161,3 +165,10 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+
+CORS_ALLOWED_ORIGINS = [
+        'http://localhost:8000'
+    ]
+
+CORS_ALLOW_ALL_ORIGINS = True
