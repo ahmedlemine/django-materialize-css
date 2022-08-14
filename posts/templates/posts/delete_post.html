@@ -10,7 +10,7 @@
     <button class="btn waves-effect waves-light red left" type="submit" name="action">Yes, Delete
         <i class="material-icons left">delete</i>
     </button>
-    <a href="{% url 'posts:detail' post.slug %}" class="btn waves-effect waves-light right">
+    <a href="{{ post.get_absolute_url }}" class="btn waves-effect waves-light right">
         No, Go back</a>
 </form>
 

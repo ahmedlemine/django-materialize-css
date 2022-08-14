@@ -76,7 +76,7 @@
         <li><a href="#comments-section" class="btn-floating yellow darken-1"><i class="material-icons">sms</i></a></li>
         <li><a href="#post-delete-modal" class="btn-floating modal-trigger red"><i class="material-icons">delete</i></a>
         </li>
-        <li><a href="{% url 'posts:update' post.slug %}" class="btn-floating modal-trigger blue">
+        <li><a href="{{ post.get_update_url }}" class="btn-floating modal-trigger blue">
             <i class="material-icons">edit</i></a>
         </li>
     </ul>

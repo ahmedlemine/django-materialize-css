@@ -58,7 +58,7 @@ def create_post(request):
             new_post.creator = request.user
             new_post.save()
             messages.success(request, 'New post created successfully')
-            return redirect('/')
+            return redirect(new_post.get_absolute_url())
         else:
             messages.success(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)
@@ -76,7 +76,7 @@ def update_post(request, slug):
     
     if p.creator != request.user:
         messages.error(request, 'Ownership error! You are not allowed to edit this post.')
-        return redirect('/')
+        return redirect(p.get_absolute_url())
     
     form = PostForm(instance=p)
 
@@ -93,7 +93,7 @@ def update_post(request, slug):
                 'popular_posts': Post.objects.order_by('-hit_count_generic__hits')[:5],
                 'recent_posts': Post.objects.order_by('-added')[:5]
             }
-            return redirect('posts:detail', slug=p.slug)
+            return redirect(p.get_absolute_url())
         else:
             messages.error(request, 'Please correct errors in form an try agin')
             form = PostForm(request.POST, request.FILES or None)
@@ -169,7 +169,7 @@ def update_post_form(request, slug):
                 'post': p
             }
             # return render(request, 'posts/post_detail.html', context)
-            return redirect('/')
+            return redirect(p.get_absolute_url())
         else:
             form = PostForm(request.POST, request.FILES or None)
     

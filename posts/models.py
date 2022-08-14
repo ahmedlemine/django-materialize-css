@@ -40,8 +40,11 @@ class Post(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('detail', kwargs = {'slug': self.slug})
+        return reverse('posts:detail', kwargs = {'slug': self.slug})
     
+    def get_update_url(self):
+        return reverse('posts:update', kwargs = {'slug': self.slug})
+
     @property
     def comments(self):
         return Comment.objects.filter(post=self)

@@ -2,7 +2,7 @@
 <ul class="collection col s12 m6">
     {% for post in post_list %}
         <li>
-            <a class="collection-item" href="{% url 'posts:detail' post.slug %}"><b>{{post.title}}</b></a>
+            <a class="collection-item" href="{{ post.get_absolute_url }}"><b>{{post.title}}</b></a>
         </li>
         {% endfor %}
 </ul>

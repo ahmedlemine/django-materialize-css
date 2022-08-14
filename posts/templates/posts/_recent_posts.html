@@ -4,7 +4,7 @@
     {% for post in recent_posts %}
     <li class="collection-item avatar">
         <img src="{{ post.image.url }}" alt="" class="circle">
-        <a href="{% url 'posts:detail' post.slug %}">
+        <a href="{{ post.get_absolute_url }}">
             <span class="title">{{ post.title|truncatechars:17 }}</span>
         </a>
         <p class="grey-text">{{ post.creator.userprofile.name }} <br>

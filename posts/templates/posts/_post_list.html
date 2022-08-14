@@ -16,7 +16,7 @@
                     <p>{{ post.body|truncatewords:20 }}</p>
                 </div>
                 <div class="card-action">
-                    <a href="{% url 'posts:detail' post.slug %}" class="teal-text">Read</a>
+                    <a href="{{ post.get_absolute_url }}" class="teal-text">Read</a>
                     <span class="grey-text vertical-align right">
                     {% get_hit_count for post %} views
                   </span>

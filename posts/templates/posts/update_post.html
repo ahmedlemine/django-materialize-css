@@ -3,12 +3,12 @@
 {% load materializecss %}
 {% block content %}
 <H3 class="purple-text darken-3">Update Post</H3>
-<form action="{% url 'posts:update' post.slug %}" method='POST' enctype="multipart/form-data" class="col s12 section">
+<form action="{{ post.get_update_url }}" method='POST' enctype="multipart/form-data" class="col s12 section">
     {% csrf_token %}
     {{ form|materializecss }}
     <button class="btn waves-effect waves-light purple darken-3" type="submit" name="action">Save
         <i class="material-icons right">send</i>
     </button>
-    <a href="{% url 'posts:detail' post.slug %}" class="yellow darken-3 right btn">Cancel</a>
+    <a href="{{ post.get_absolute_url }}" class="yellow darken-3 right btn">Cancel</a>
 </form>
 {% endblock content %}

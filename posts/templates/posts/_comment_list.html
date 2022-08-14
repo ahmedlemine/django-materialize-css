@@ -8,7 +8,7 @@
                 hx-swap="outerHTML">Leave a comment</button>
             </span>
             {% else %}
-            <p class="">Please <a href="{% url 'account_login' %}?next={% url 'posts:detail' post.slug %}">login</a> to leave a comment.</p>
+            <p class="">Please <a href="{% url 'account_login' %}?next={{ post.get_absolute_url }}">login</a> to leave a comment.</p>
             {% endif %}
           </li>
           {% for comment in post.comments %}
