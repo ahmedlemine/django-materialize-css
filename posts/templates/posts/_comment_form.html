@@ -2,7 +2,7 @@
 <li hx-target="this" class="collection-item avatar">
   <img src="{{ user.userprofile.avatar.url }}" alt="" class="circle">
       <div  hx-swap="outerHTML">
-        <form hx-post="{% url 'posts:comment' post.slug %}" method='POST'>
+        <form hx-post="{{ post.get_add_comment_url }}" method='POST'>
           {% csrf_token %}
           {{ form|materializecss }}
             <button

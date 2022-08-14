@@ -196,7 +196,7 @@ def create_comment_form(request, slug):
             context = {
                 'comment': new_comment,
             }
-            time.sleep(0.5)
+            time.sleep(0.3)
             return render(request, 'posts/_comment.html', context)
         else:
             form = CommentForm(request.POST or None)

@@ -11,7 +11,7 @@
     </p>
     
     {% if user.is_authenticated and user == comment.user %}
-    <form hx-post="{% url 'posts:delete-comment' comment.pk %}" method="post" class="secondary-content">
+    <form hx-post="{{ comment.get_delete_url }}" method="post" class="secondary-content">
         {% csrf_token %}
         <div id="indicator" class="htmx-indicator preloader-wrapper small active">
             <div class="spinner-layer spinner-green-only">

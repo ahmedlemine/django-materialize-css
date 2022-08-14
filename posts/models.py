@@ -44,6 +44,9 @@ class Post(models.Model):
     
     def get_update_url(self):
         return reverse('posts:update', kwargs = {'slug': self.slug})
+    
+    def get_add_comment_url(self):
+        return reverse('posts:comment', kwargs = {'slug': self.slug})
 
     @property
     def comments(self):
@@ -64,3 +67,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user} on {self.post}"
+    
+    def get_delete_url(self):
+        return reverse('posts:delete-comment', kwargs = {'pk': self.pk})
