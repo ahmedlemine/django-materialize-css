@@ -10,6 +10,7 @@ from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from hitcount.views import HitCountDetailView
 
 from .mixins import UserIsOwnerMixin
 from .models import Post, Comment
@@ -28,7 +29,7 @@ class Index(ListView):
         })
         return context  
 
-class PostDetail(DetailView):
+class PostDetail(HitCountDetailView):
     model = Post
     template_name = 'posts/post_detail.html'
     count_hit = True

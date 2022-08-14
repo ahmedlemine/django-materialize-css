@@ -16,10 +16,11 @@
                     <p>{{ post.body|truncatewords:20 }}</p>
                 </div>
                 <div class="card-action">
-                    <a href="{{ post.get_absolute_url }}" class="teal-text">Read</a>
+                    <a href="{{ post.get_absolute_url }}" class="teal-text">Read
                     <span class="grey-text vertical-align right">
-                    {% get_hit_count for post %} views
-                  </span>
+                        <i class="far fa-eye"></i>&nbsp;&nbsp;{% get_hit_count for post %} &nbsp;&#8226;
+                        &nbsp;<i class="far fa-comment"></i>&nbsp;&nbsp;{{ post.comment_count }}
+                  </span></a>
                 </div>
             </div>
         </div>

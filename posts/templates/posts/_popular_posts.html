@@ -8,7 +8,7 @@
                 <span class="title">{{ post.title|truncatechars:17 }}</span>
               </a>
               <p class="grey-text">{{ post.creator.userprofile.name }} <br>
-                {% get_hit_count for post %} views
+                <i class="far fa-eye"></i>&nbsp;&nbsp;{% get_hit_count for post %}
               </p>
               <!-- <a href="{{ post.get_absolute_url }}" class="secondary-content"><i class="material-icons">star</i></a> -->
             </li>
