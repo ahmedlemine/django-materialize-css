@@ -59,9 +59,10 @@
 
                     <!-- Dropdown Trigger -->
                     <li><a class="dropdown-trigger btn-floating" href="#!" data-target="dropdown1">
-                        <i class="material-icons right">person</i>
-                        <!-- <i class="material-icons right">more_vert</i> -->
-                    </a></li>
+                        <img src="{{ user.userprofile.avatar.url }}" class="avatar responsive-img">
+                        </a>
+                        <!-- <i class="material-icons right">person</i> -->                        
+                    </li>
 
                     {% else %}
                     <li>
@@ -113,7 +114,7 @@
             </div>
             <a href="#user"><img class="circle" src="/media/avatars/user_avatar.png"></a>
             <a href="#name"><span class="white-text name">guest</span></a>
-            <a href="#email"><span class="white-text email">no email</span></a>
+            <a href="#email"><span class="white-text email"></span></a>
         </div>
     </li>
     {% endif %}

@@ -15,9 +15,15 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=25, default='new user', blank=True)
     bio = models.CharField(max_length=250, default='', blank=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/user_avatar.png')
+
     
     def __str__(self):
         return self.user.username
+    
+
+    def get_user_initials(self):
+        return self.name[0]
+
 
 #auto create user profile after user signup
 @receiver(post_save, sender=CustomUser)
