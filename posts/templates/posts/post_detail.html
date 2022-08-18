@@ -4,6 +4,8 @@
 {% load hitcount_tags %}
 {% load humanize %}
 
+{% block title %}{{ post.title }}{% endblock title %}
+
 {% block content %}
 <div class="row">
     <div id="post-detail" class="col s12 l8 section">

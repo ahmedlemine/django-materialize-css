@@ -256,7 +256,8 @@ def search(request):
                 Q(body__icontains=q)
                 ).distinct()
         context = {
-            'post_list': qs
+            'post_list': qs,
+            'keyword': q
         }
         return render(request, 'posts/search_results.html', context)
         

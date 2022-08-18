@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% block title %}Search Results for {{ keyword }}{% endblock title %}
+
 {% block content %}
 <div id="" class="section">
-    <h5 class="purple-text text-darken-3">Search Results</h5>
+    <h5 class="purple-text text-darken-3">Search Results for <i>{{ keyword}}</i></h5>
     {% if post_list %}
         {% include 'posts/_post_list.html' %}
     {% else %}

@@ -1,0 +1,16 @@
+.collection {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.htmx-settling img {
+    opacity: 0;
+  }
+  img {
+   transition: opacity 300ms ease-in;
+  }
+
+#messages-queue {
+    display: none;
+}

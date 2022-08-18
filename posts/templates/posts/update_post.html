@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load materializecss %}
+
+{% block title %}Update post{% endblock title %}
+
 {% block content %}
 <H3 class="purple-text darken-3">Update Post</H3>
 <form action="{{ post.get_update_url }}" method='POST' enctype="multipart/form-data" class="col s12 section">

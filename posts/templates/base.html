@@ -22,12 +22,15 @@
     <!--Import materialize.css-->
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
     
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
     <!-- Font Awesome-->
     <script src="https://kit.fontawesome.com/c2dba015b9.js" crossorigin="anonymous"></script>
 
     <!--mobile optimiztion -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Django Starter</title>
+    <title>Django Starter | {% block title %}{% endblock title %}</title>
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
@@ -143,7 +146,7 @@
 <div class="container">
     <!-- Messages list -->
     {% if messages %}
-    <ul class="collection purple-text text-darken-4" style="display: none;">
+    <ul id="messages-queue" class="collection purple-text text-darken-4" style="display: none;">
         {% for message in messages %}
         <li id="dj-msg" {% if message.tags %} class="{{ message.tags }} collection-item indigo lighten-5" {% endif %}">{{ message }}</li>
         {% endfor %}

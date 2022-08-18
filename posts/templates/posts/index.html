@@ -2,16 +2,10 @@
 {% load static %}
 {% load humanize %}
 
-{% block content %}
-<style>
-.htmx-settling img {
-  opacity: 0;
-}
-img {
- transition: opacity 300ms ease-in;
-}
+{% block title %}Home{% endblock title %}
 
-</style>
+{% block content %}
+
 <div class="row">
     {% comment %}
     <!-- Search autocomplete -->
