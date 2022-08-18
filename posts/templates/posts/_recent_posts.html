@@ -3,7 +3,7 @@
 <div class="collection">
     {% for post in recent_posts %}
     <li class="collection-item avatar">
-        <img src="{{ post.image.url }}" alt="" class="circle">
+        <img src="{{ post.image_thumbnail.url }}" class="circle">
         <a href="{{ post.get_absolute_url }}">
             <span class="title">{{ post.title|truncatechars:17 }}</span>
         </a>

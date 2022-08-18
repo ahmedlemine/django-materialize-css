@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 
@@ -24,6 +26,10 @@ class Post(models.Model):
     slug = AutoSlugField(unique=True, always_update=False, populate_from="title")
     body = models.TextField()
     image = models.ImageField(upload_to='images/', default='images/blank.png')
+    image_thumbnail = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(150, 150)],
+                                      format='JPEG',
+                                      options={'quality': 60})
     creator = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE
