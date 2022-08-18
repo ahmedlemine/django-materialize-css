@@ -62,7 +62,7 @@
 
                     <!-- Dropdown Trigger -->
                     <li><a class="dropdown-trigger btn-floating" href="#!" data-target="dropdown1">
-                        <img src="{{ user.userprofile.avatar.url }}" class="avatar responsive-img">
+                        <img src="{{ user.userprofile.avatar_thumbnail.url }}" class="avatar responsive-img">
                         </a>
                         <!-- <i class="material-icons right">person</i> -->                        
                     </li>
@@ -104,7 +104,7 @@
             <div class="background">
                 <img src="{% static 'images/office.jpg' %}">
             </div>
-            <a href="#user"><img class="circle" src="{{ user.userprofile.avatar.url }}"></a>
+            <a href="#user"><img class="circle" src="{{ user.userprofile.avatar_thumbnail.url }}"></a>
             <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
             <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
         </div>
