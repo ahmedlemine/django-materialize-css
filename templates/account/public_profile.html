@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+<!-- profile chip -->
+<div class="col s12 m8">
+  <h4 class="purple-text text-darken-3">Profile</h4>
+
+  <div class="card-panel grey lighten-5 z-depth-0">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        <img src="{{ userprofile.avatar_thumbnail.url }}" alt="{{ userprofile.name }}'s avatar" class="circle responsive-img">
+      </div>
+      <div class="black-text col s10">
+        <h5>{{ userprofile.name }}</h5>
+        <p class="grey-text">@{{userprofile.user.username}}</p>
+        <p>{{ userprofile.bio }}</p>
+        <p>Joined: {{userprofile.user.date_joined|date:"M, Y" }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col s12">
+    <section>
+      <h4 class="purple-text text-darken-3">{{ userprofile.name }}'s Posts
+      {% if post_list %}
+          <span class="grey-text"> ({{ post_list.count }})</span></h4>
+          {% include 'posts/_post_list.html' %}
+      {% else %}
+        </h4>
+        <p><b>{{ userprofile.name }}</b> hasn't posted yet.</p>
+      {% endif %}
+    </section>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

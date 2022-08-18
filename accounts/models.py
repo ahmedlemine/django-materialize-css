@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.urls import reverse
+
 
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
@@ -15,7 +17,7 @@ class CustomUser(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25, default='new user', blank=True)
+    name = models.CharField(max_length=25, default='new_user', blank=True)
     bio = models.CharField(max_length=250, default='', blank=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/user_avatar.png')
     avatar_thumbnail = ImageSpecField(source='avatar',
@@ -30,6 +32,9 @@ class UserProfile(models.Model):
 
     def get_user_initials(self):
         return self.name[0]
+    
+    def get_public_profile_url(self):
+        return reverse('accounts:public-profile', kwargs = {'username': self.user.username})
 
 
 #auto create user profile after user signup

@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserChangeForm, UserProfileForm
 from posts.models import Post
+from .models import UserProfile, CustomUser
 
 @login_required
 def update_profile(request):
@@ -28,3 +29,13 @@ def update_profile(request):
         "form":form, 
     }
     return render(request, "account/profile.html", context)
+
+def public_profile(request, username):
+    user = get_object_or_404(CustomUser, username=username)
+    userprofile = user.userprofile
+    post_list = Post.objects.filter(creator=user)
+    context = {
+        'userprofile': userprofile,
+        'post_list': post_list
+    }
+    return render(request, 'account/public_profile.html', context)
