@@ -4,13 +4,17 @@
     margin: 0;
 }
 
-.htmx-settling img {
-    opacity: 0;
-  }
-  img {
-   transition: opacity 300ms ease-in;
-  }
-
 #messages-queue {
     display: none;
+}
+
+.htmx-indicator{
+    opacity:0;
+    transition: opacity 500ms ease-in;
+}
+.htmx-request .htmx-indicator{
+    opacity:1
+}
+.htmx-request.htmx-indicator{
+    opacity:1
 }
