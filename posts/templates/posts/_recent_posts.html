@@ -11,24 +11,6 @@
             {{ post.added|timesince }} ago
         </p>
     </li>
-    <!-- <div class="z-depth-0">
-        <div class="row valign-wrapper">
-          <div class="col s3">
-                <a href="{{ post.get_absolute_url }}">
-                    <img src="{{ post.image_thumbnail.url }}" alt="{{ user.userprofile.name }} avatar" class="post-thumb responsive-img">
-                </a>
-            </div>
-            <div class="col s9" style="">
-                <a href="{{ post.get_absolute_url }}">
-                    <span class="title">{{ post.title|truncatechars:40 }}</span>
-                </a>
-                <br>
-                <span class="grey-text">{{ post.creator.userprofile.name }} <br>
-                    {{ post.added|timesince }} ago
-                </span>
-            </div>
-        </div>
-    </div> -->
     {% endfor %}
 </div>
 

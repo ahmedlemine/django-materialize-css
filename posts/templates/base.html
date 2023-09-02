@@ -5,9 +5,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Hyper scripte-->
-    <!-- <script src="https://unpkg.com/hyperscript.org@0.9.7"></script> -->
-
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
   
@@ -20,8 +17,6 @@
     <!-- Font Awesome-->
     <script src="https://kit.fontawesome.com/c2dba015b9.js" crossorigin="anonymous"></script>
 
-    <!-- local HTMX not working -->
-    <!-- <script src="{% static 'htmx/htmx.js' %}"></script> -->
   <!-- htmx CDN -->
   <script src="https://unpkg.com/htmx.org@1.8.0"
           integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc"
@@ -52,7 +47,7 @@
                 <a href="/" class="brand-logo hide-on-med-and-up"><i class="material-icons">home</i></a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
-                <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+                
                 <ul class="right hide-on-med-and-down">
                     <li>
                         <a href="/">Posts</a>
@@ -66,7 +61,7 @@
                     <li><a class="dropdown-trigger btn-floating" href="#!" data-target="dropdown1">
                         <img src="{{ user.userprofile.avatar_thumbnail.url }}" class="avatar responsive-img">
                         </a>
-                        <!-- <i class="material-icons right">person</i> -->                        
+                                               
                     </li>
 
                     {% else %}
@@ -163,13 +158,9 @@
 {% endblock script %}
   
     <script src="{% static 'js/materialize.min.js' %}"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 
 <script>
-        // insert csrf token when performing AJAX request 
-        //document.body.addEventListener('htmx:configRequest', (event) => {
-        //event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; 
-        //})
+        
         // floatin action buttons init
         document.addEventListener('DOMContentLoaded', function() {
         var fab = document.querySelectorAll('.fixed-action-btn');
@@ -217,24 +208,7 @@
                 M.toast({html: msg }) 
             }
           })
-        // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
-        // var collapsibleElem = document.querySelector('.collapsible');
-        // var collapsibleInstance = M.Collapsible.init(collapsibleElem, {});
-
-        // End of Materialize side nav
-
-        
-        // init materialized css auto complete with ajax
-        // document.addEventListener('DOMContentLoaded', function() {
-        //       $.get("/ajax_post_list/", function(data){
-        //         let ac = document.querySelectorAll('.autocomplete');
-        //         let instances = M.Autocomplete.init(ac, {
-        //         data: JSON.parse(JSON.stringify(data))
-        //         });
-        //     });
-        // });
-        
-        
+    
 
 </script>
 </body>
