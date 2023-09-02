@@ -1,15 +1,14 @@
 import time
 
-from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
+from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse, reverse_lazy
-from django.conf import settings
+from django.urls import reverse_lazy
 from django.views.decorators.http import require_http_methods
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from django.views.generic import ListView, DeleteView
 from hitcount.views import HitCountDetailView
 
 from .mixins import UserIsOwnerMixin
@@ -105,13 +104,7 @@ def update_post(request, slug):
     }
     return render(request, 'posts/update_post.html', context)
 
-# def index_view(request):
-#     qs = Post.objects.all()
-#     context = {
-#         'qs': qs
-#     }
-    
-#     return render(request, 'posts/index.html', context)
+
 @login_required
 @require_http_methods(['DELETE'])
 def delete_post_htmx(request, slug):
@@ -122,7 +115,6 @@ def delete_post_htmx(request, slug):
         'post_list': posts
     }
     return render(request, 'posts/_post_list.html', context)
-    # return HttpResponse(f"Post: '{post.title}' successfully deleted.") 
 
 
 # HTMX form to return in partial template
@@ -165,11 +157,11 @@ def update_post_form(request, slug):
             p.body = form.cleaned_data['body']
             p.image = form.cleaned_data['image']
             p.save()
-            # posts = Post.objects.all()
+
             context = {
                 'post': p
             }
-            # return render(request, 'posts/post_detail.html', context)
+
             return redirect(p.get_absolute_url())
         else:
             form = PostForm(request.POST, request.FILES or None)
@@ -225,7 +217,7 @@ def delete_comment(request, pk):
             comment.delete()
             return render(request, 'posts/htmx/_htmx_comment_deleted.html', context)
         return HttpResponseForbidden('Not Allowed')
-    # returns bad request if method is GET
+
     return HttpResponseNotAllowed( ['POST'], 'Not Allowed')
 
 
@@ -239,12 +231,6 @@ def htmx_post_list(request):
 def ajax_post_list(request):
     post_list = list(Post.objects.values())
     return JsonResponse(post_list, safe=False)
-
-    # old for materialize css autocomplete field
-    # data = {}
-    # for i in post_list: 
-    #     data[i['title']]= settings.MEDIA_URL + i['image']
-    # return JsonResponse(data, safe=False)
 
 
 def search(request):
@@ -265,5 +251,3 @@ def search(request):
         'post_list': ''
     }
     return render(request, 'posts/search_results.html', context)
-
-    # return HttpResponse('please type a search keyword')
