@@ -38,28 +38,42 @@ cd <repo_dir>
 
 2- create virtual environment:
 
-`python3 -m venv venv`
+```
+python3 -m venv venv
+```
 
 3- Activate virtual env:
 
-`source venv/bin/activate`
+```
+source venv/bin/activate
+```
 
 3- install requirements
 
-`pip3 install -r requirements.txt`
+```
+pip3 install -r requirements.txt
+```
 
 5- make migrations:
 
-`python3 manage.py makemigrations`
+```
+python3 manage.py makemigrations
+```
 
 5- migrate:
 
-`python3 manage.py maigrate`
+```
+python3 manage.py maigrate
+```
 
 6- create suepr user:
 
-`python3 manage.py createsuperuser`
+```
+python3 manage.py createsuperuser
+```
 
 7- run server
 
-`python3 manage.py runserver`
+```
+python3 manage.py runserver
+```
