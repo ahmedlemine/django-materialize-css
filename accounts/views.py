@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserChangeForm, UserProfileForm
+from .forms import UserProfileForm
 from posts.models import Post
-from .models import UserProfile, CustomUser
+from .models import CustomUser
 
 @login_required
 def update_profile(request):
@@ -19,10 +18,7 @@ def update_profile(request):
             return redirect("accounts:profile")
         else:
             form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
-            # context = {
-            #     "form":form, 
-            # }
-            # return render(request, "account/profile.html", context)
+
 
     context = {
         "posts": Post.objects.filter(creator=user),

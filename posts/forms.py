@@ -37,21 +37,3 @@ class CommentForm(forms.ModelForm):
             msg = 'Comment is too short.'
             self.add_error('comment', msg)
         return data
-# class PostForm(forms.Form):
-#     model = Post
-#     title = forms.CharField(
-#         label= "Post Title",
-#         widget=forms.TextInput(attrs= {
-#             'class': 'input-field'
-#         })
-#     )
-#     body = forms.Textarea(
-#         # label="Post Body",
-#         widget=forms.Textarea(attrs= {
-#             'class': 'materialize-textarea',
-#             'rows': 13
-#         }),
-#     )
-
-#     # class Meta:
-#     #     fields = ['title', 'body' ]
