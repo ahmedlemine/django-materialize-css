@@ -1,11 +1,65 @@
 # Django Materialize CSS and HTMx Starter Template
 ### a simple Django blog with [Materialize CSS](https://materializecss.com/) and [HTMx](https://htmx.org/)
+![](screenshots/desktop.png)
+
+![](screenshots/posts_list.jpg)
+
 
 
 This is a fully functioning mobile-first Django project to use as a starter for your new project.
-The fully responsive mobile-first design with a side menu and floating action buttons make the whole site look like an Android app.
+The fully responsive mobile-first design with a side menu and floating action buttons make the whole site look like an Android app (see screenshots).
 
 A Posts app and Accounts app are setup just as an example to show case various functionaliy and featuers of the project with several useful packages and settings included like Django-Allauth and Django-Jazzmin.
+
+### Screenshots
+![](screenshots/desktop.png)
+
+home page on desktop browsers
+
+
+![](screenshots/desktop_logged_in.png)
+
+desktop view for index page as a logged in user.
+
+
+![](screenshots/posts_list.jpg)
+
+home page on mobile devices
+
+![](screenshots/post.jpg)
+
+mobile view for a single post
+
+
+![](screenshots/comments.jpg)
+
+mobile view for comments under each post
+
+
+![](screenshots/mobile_side_menu.jpg)
+
+mobile side menu
+
+
+![](screenshots/logged_in_user_mobile_side_menu.jpg)
+
+mobile side menu for logged in user
+
+
+![](screenshots/login.jpg)
+
+mobile login page
+
+
+![](screenshots/floating_action_menu.jpg)
+
+floating action buttons
+
+
+![](screenshots/post_floating_action_menu.jpg)
+
+floating action buttons on a single post
+
 
 ### Features:
 - Materialize CSS gives a Googles Material Design look and feel (Android) for all pages, with floating action buttons.
@@ -19,7 +73,8 @@ A Posts app and Accounts app are setup just as an example to show case various f
 - User email/password change with email confirmation.
 - User public and private profile with photo and bio and list of posts.
 - Flash messages (toasts) that look like Android native flash messages to display info after any user generated action like "Post has been updated", "You're logged in as User" etc.
-
+- Thumbnails for user avatars and post images using ImageKit.
+- Custom error pages like 404, 500.
 
 
 ### Installed Packages:
@@ -29,6 +84,7 @@ A Posts app and Accounts app are setup just as an example to show case various f
 - django-imagekit
 - django-jazzmin for a nicer looking Django admin interface.
 - django-materializecss-form to add support for Materialize CSS in Django forms.
+- ImageKit to resize images and create thumbnails.
 
 
 ### How to use:
