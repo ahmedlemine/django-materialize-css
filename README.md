@@ -126,7 +126,7 @@ mv env.example .env
 6- Migrate:
 
 ```
-python3 manage.py maigrate
+python3 manage.py migrate
 ```
 
 7- Create suepr user:

@@ -319,7 +319,8 @@ Session.vim
 tags
 
 ### Project template
-/media/
+/media/images
+/media/CACHE
 
 .pytest_cache/
 
