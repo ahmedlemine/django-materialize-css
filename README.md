@@ -1,9 +1,11 @@
-# Django Material HTMx Starter Template
-### a simple Django blog with Materialize CSS and HTMx
+# Django Materialize CSS and HTMx Starter Template
+### a simple Django blog with [Materialize CSS](https://materializecss.com/) and [HTMx](https://htmx.org/)
+
+
 This is a fully functioning mobile-first Django project to use as a starter for your new project.
 The fully responsive mobile-first design with a side menu and floating action buttons make the whole site look like an Android app.
 
-A Posts app is setup just as an example to show case various aspects and featuers of the project with several useful packages and settings included like Django-Allauth and Django-Jazzmin.
+A Posts app and Accounts app are setup just as an example to show case various functionaliy and featuers of the project with several useful packages and settings included like Django-Allauth and Django-Jazzmin.
 
 ### Features:
 - Materialize CSS gives a Googles Material Design look and feel (Android) for all pages, with floating action buttons.
@@ -13,7 +15,8 @@ A Posts app is setup just as an example to show case various aspects and featuer
 - Posts app for publishing blog posts with a blog photo.
 - Comments system to allow user to comment on posts.
 - Custom user model ready to use. You can add custom fields and properties to users.
-- User login/logout with Django-Allauth
+- User login/signup with Django-Allauth with all Allauth templates customized to have Materilized CSS style.
+- User email/password change with email confirmation.
 - User public and private profile with photo and bio and list of posts.
 - Flash messages (toasts) that look like Android native flash messages to display info after any user generated action like "Post has been updated", "You're logged in as User" etc.
 
@@ -48,16 +51,10 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-3- install requirements
+4- install requirements
 
 ```
 pip3 install -r requirements.txt
-```
-
-5- make migrations:
-
-```
-python3 manage.py makemigrations
 ```
 
 5- migrate:
@@ -76,4 +73,10 @@ python3 manage.py createsuperuser
 
 ```
 python3 manage.py runserver
+```
+
+8- start your own apps (or use it just as a blog):
+
+```
+python3 manage.py startapp my_app
 ```
