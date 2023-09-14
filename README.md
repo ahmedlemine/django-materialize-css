@@ -11,6 +11,11 @@ The fully responsive mobile-first design with a side menu and floating action bu
 
 A Posts app and Accounts app are setup just as an example to showcase various functionaliy and featuers of the project with several useful packages and settings included like Django-Allauth and Django-Jazzmin.
 
+## Why another Django template?
+
+Most Django templates use Bootstrap. I thought building one with another CSS framework can be of some use to some users who want a different look and feel than the generic Bootstrap templates out there. Also, I couldn't find one and at some point felt I should do it myself.
+In addition to the style, HTMx is a very nice library and looks promising so I added just enough HTMx to showcase its beauty with Django.
+
 ## Screenshots:
 
 ![](screenshots/desktop.png)
